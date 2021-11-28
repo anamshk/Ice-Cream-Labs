@@ -27,8 +27,8 @@ CREATE TABLE items (
 CREATE TABLE order_master (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  order_line_item_id INTEGER REFERENCES order_line_items(id) ON DELETE CASCADE,
   order_datetime TIMESTAMP,
+  estimated_time
   completion_datetime TIMESTAMP,
   status TEXT
 )

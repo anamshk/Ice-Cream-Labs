@@ -13,4 +13,4 @@ INSERT INTO items (title, description, photo_url, price, tags, inventory) VALUES
 INSERT INTO order_master (user_id, order_line_item_id, order_datetime, completion_datetime, status) VALUES (2, 3,  );
 
 
-INSERT INTO order_line_items ()
+INSERT INTO order_line_items (user_id, order_datetime, completion_datetime, status)
