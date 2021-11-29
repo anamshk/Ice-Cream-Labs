@@ -11,7 +11,7 @@ CREATE TABLE users (
   phone_number VARCHAR(32) NOT NULL,
   email_address VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  is_admin  BOOLEAN NOT NULL DEFAULT FALSE
+  is_admin  BOOLEAN NOT NULL DEFAULT FALSE,
 );
 
 CREATE TABLE items (
@@ -20,30 +20,21 @@ CREATE TABLE items (
   description TEXT,
   photo_url VARCHAR(255) NOT NULL,
   price INTEGER NOT NULL,
-<<<<<<< HEAD
-  inventory INTEGER NOT NULL
+  inventory INTEGER NOT NULL,
 );
-=======
-  inventory INTGER NOT NULL
-)
->>>>>>> master
 
 CREATE TABLE order_master (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   order_datetime TIMESTAMP,
-<<<<<<< HEAD
   estimated_time TEXT,
-=======
-  estimated_time
->>>>>>> master
   completion_datetime TIMESTAMP,
-  status TEXT
+  status TEXT,
 );
 
 CREATE TABLE order_line_items (
   id SERIAL PRIMARY KEY NOT NULL,   
   item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
   order_master_id INTEGER REFERENCES order_master(id) ON DELETE CASCADE,
-  quantity INTEGER NOT NULL
+  quantity INTEGER NOT NULL,
 );
