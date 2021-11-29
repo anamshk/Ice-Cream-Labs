@@ -20,7 +20,6 @@ CREATE TABLE items (
   description TEXT,
   photo_url VARCHAR(255) NOT NULL,
   price INTEGER NOT NULL,
-  tags TEXT,
 <<<<<<< HEAD
   inventory INTEGER NOT NULL
 );
