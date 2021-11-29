@@ -10,7 +10,7 @@ INSERT INTO items (title, description, photo_url, price, tags, inventory) VALUES
 INSERT INTO items (title, description, photo_url, price, tags, inventory) VALUES ('Pumpkin Spice', 'Fall limited time flavour - locally sourced pumpkins blended with your favourite spices (cinnamon).', 'https://cdn.shopify.com/s/files/1/0552/4953/5154/products/2021PEACH_331d03bb-5345-4778-a7c4-4a16b820bbd0_900x.jpg?v=1632439247', $3.50, 100)
 INSERT INTO items (title, description, photo_url, price, tags, inventory) VALUES ('Mint Chocolate', 'Minty fresh with chocolate chunks.', 'https://cdn.shopify.com/s/files/1/0552/4953/5154/products/MINTCHOCOLATE_900x.jpg?v=1621484762', $3.25, ,100)
 
-INSERT INTO order_master (user_id, order_line_item_id, order_datetime, completion_datetime, status) VALUES (2, 3,  );
+INSERT INTO order_master (user_id, order_line_item_id, order_datetime, estimated_time, completion_datetime, status) VALUES (2, 3,  );
 
 
 INSERT INTO order_line_items (user_id, order_datetime, completion_datetime, status)
