@@ -1,6 +1,5 @@
 -- Drop and recreate Users table (Example)
 
-// Tables go here
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS items CASCADE;
 DROP TABLE IF EXISTS order_master CASCADE;
@@ -22,14 +21,23 @@ CREATE TABLE items (
   photo_url VARCHAR(255) NOT NULL,
   price INTEGER NOT NULL,
   tags TEXT,
+<<<<<<< HEAD
   inventory INTEGER NOT NULL
 );
+=======
+  inventory INTGER NOT NULL
+)
+>>>>>>> master
 
 CREATE TABLE order_master (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   order_datetime TIMESTAMP,
+<<<<<<< HEAD
   estimated_time TEXT,
+=======
+  estimated_time
+>>>>>>> master
   completion_datetime TIMESTAMP,
   status TEXT
 );
