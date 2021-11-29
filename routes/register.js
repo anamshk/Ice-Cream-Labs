@@ -25,12 +25,12 @@ router.post("/", (req, res) => {
   var salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
-  const newUser = {};
-  newUser.name = name;
-  newUser.email_address = email_address;
-  newUser.password = hashedPassword;
-  newUser.phone_number = phone_number;
-
+  const newUser = {
+    name: name,
+    email_address: email_address,
+    password: hashedPassword,
+    phone_number: phone_number,
+  };
 
   getUserByEmail(newUser.email_address)
     .then((user) => {
