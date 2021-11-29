@@ -21,13 +21,16 @@ router.post("/", (req, res) => {
   }
 
   // create new user object from form submit
+
+  var salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
   const newUser = {};
   newUser.name = name;
   newUser.email_address = email_address;
-  newUser.password = password;
+  newUser.password = hashedPassword;
   newUser.phone_number = phone_number;
 
-  // const hashedPassword = bcrypt.hashSync(password, 10);
 
   getUserByEmail(newUser.email_address)
     .then((user) => {
