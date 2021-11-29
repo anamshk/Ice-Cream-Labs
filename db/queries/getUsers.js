@@ -15,7 +15,6 @@ const getUserByEmail = (email_address) => {
   return db
     .query(`SELECT * FROM users WHERE email_address = $1;`, [email_address])
     .then((result) => {
-      console.log("from getUsers.js promise", result.rows[0])
       return result.rows[0];
     })
     .catch((err) => {
