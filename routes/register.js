@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcryptjs');
 const addUser = require("../db/queries/addUser");
-// const {getEmailFromId, finduserbyEmail, verifyHash, generateRandomString} = require('./queries/userHelper');
+const { getUserByEmail } = require("../db/queries/getUsers");
 
 // GET redirect user to /register.ejs
 router.get("/", (req, res)=> {
@@ -11,32 +11,39 @@ router.get("/", (req, res)=> {
 
 //POST register/save new user to users table and redirect to /login
 router.post("/", (req, res) => {
-  const user = {};
-  user.name = req.body.name;
-  user.email_address = req.body.email_address;
-  user.password = req.body.password;
-  user.phone_number = req.body.phone_number;
+  const { name, email_address, phone_number, password } = req.body;
 
-  // const user = finduserbyEmail(user, email);
+  // check if inputs are blank and return error message
+  if (email_address === "" || password === "" || name === "" || phone_number === "") {
+    res.status(400);
+    res.render("register", { error: "Values cannot be empty! Please try again" });
+    return;
+  }
+
+  // create new user object from form submit
+  const newUser = {};
+  newUser.name = name;
+  newUser.email_address = email_address;
+  newUser.password = password;
+  newUser.phone_number = phone_number;
+
   // const hashedPassword = bcrypt.hashSync(password, 10);
 
-  // if (email === "" || password === "") {
-  //   res.redirect("Incorrect email or password");
-  // }
+  getUserByEmail(newUser.email_address)
+    .then((user) => {
+      // if user exists, display error message
+      if (user) {
+        res.status(400);
+        res.render("register", { error: "Email already registered! Try restting password" });
+        return;
+      } else {
+        // add newUser if user does not exist
+        addUser(newUser);
+        res.json(newUser);
+        // res.render("../views/login", { error: null });
+      }
 
-  // if (!user) {
-  //   const userId = generateRandomString();
-  //   user[userId] = { id: userId, email, password: hashedPassword };
-  //   req.session.id = userId;
-  // } else {
-  //   res.redirect("_404error");
-  // }
-
-  // console.log(user)
-  addUser(user);
-  // console.log("user added", user);
-  res.json(user);
-  // res.render("../views/login", { error: null });
+    });
 });
 
 module.exports = router;

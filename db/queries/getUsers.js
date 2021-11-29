@@ -1,41 +1,42 @@
 // helper function to insert users into Users table
+const bcrypt = require('bcryptjs');
 const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
+const dbParams = require("../../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const bcrypt = require('bcryptjs');
-//check to see if email exists
+/**
+ * get user database by email.
+ * @param {{email_address: string}} user
+ * @return {Promise<{}>} A promise to the user.
+ */
 
-const getUser (field) => {
-  // sql query to get user by field we pass
-  return db.query()
-}
-
-const getEmailFromId = (userid, database) => {
-  return (database[userid]) ? database[userid].email : null;
+const getUserByEmail = (email_address) => {
+  return db
+    .query(`SELECT * FROM users WHERE email_address = $1;`, [email_address])
+    .then((result) => {
+      console.log("from getUsers.js promise", result.rows[0])
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 
-const verifyHash = (userid, password, database) => {
-  return bcrypt.compareSync(password, database[userid].password);
+/**
+ * get user database by id.
+ * @param {{id: int}} user
+ * @return {Promise<{}>} A promise to the user.
+ */
+const getUserById = (id) => {
+  return db
+    .query(`SELECT * FROM users WHERE email_address = $1;`, [id])
+    .then((result) => {
+      console.log("from getUsers.js promise", result.rows[0])
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
-
-const finduserbyEmail = (database, email) => {
-  for (let userid in database) {
-    if (database[userid].email === email) {
-      return database[userid];
-    }
-  }
-  return false;
-};
-
-const generateRandomString = () => {
-  return Math.random().toString(36).substr(2, 6);
-};
-
-module.exports = {
-  getEmailFromId,
-  finduserbyEmail,
-  verifyHash,
-  generateRandomString
-};
+module.exports = { getUserByEmail, getUserById };
