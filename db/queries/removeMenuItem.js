@@ -5,9 +5,7 @@ db.connect();
 
 const removeMenuItem = (item) => {
   return db
-    .query(`DELETE FROM items (title, description, photo_url, price, inventory)
-    VALUES($1, $2, $3, $4, $5) 
-    RETURNING *;`, [item.title, item.description, item.photo_url, item.price, item.inventory])
+    .query(`DELETE FROM items WHERE id = $1`, [item.id])
     .then((result) => result.rows[0])
     .catch((err) => {
       console.log(err.message);

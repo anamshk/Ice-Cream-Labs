@@ -1,7 +1,7 @@
-const { Pool } = require("pg");
-const dbParams = require("../../lib/db");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+const db = require("../../lib/db");
+// const db = new Pool(dbParams);
+// db.connect();
 
 const addMenuItem = (item) => {
   return db
