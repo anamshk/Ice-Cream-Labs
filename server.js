@@ -8,14 +8,17 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
-const { getUserById } = require("./db/queries/getUsers.js");
-const { getItems } = require("./db/queries/getItems");
 
 // PG database client/connection setup
-// const { Pool } = require("pg");
-// const dbParams = require("./lib/db.js");
-// const db = new Pool(dbParams);
-// db.connect();
+const { Pool } = require("pg");
+const dbParams = require("./lib/db.js");
+const db = new Pool(dbParams);
+db.connect();
+
+// TODO: remove just testing
+// const { addCart } = require("./db/queries/addCart")(db);
+const { getUserById } = require("./db/queries/getUsers.js")(db);
+const { getItems } = require("./db/queries/getItems")(db);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -43,8 +46,6 @@ app.use(cookieSession({
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
 const registerRoutes = require("./routes/register");
 const admin = require("./routes/admin/admin");
 const loginRoutes = require("./routes/login");
@@ -52,10 +53,6 @@ const loginRoutes = require("./routes/login");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: mount other resources here, using the same pattern above
-// TODO: delete, was for demo purposes
-// app.use("/api/users", usersRoutes(db));
-// app.use("/api/widgets", widgetsRoutes(db));
-
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
 app.use("/login", loginRoutes);
@@ -66,6 +63,12 @@ app.use("/login", loginRoutes);
 // Home page
 // GET / check if user logged in and render index page with all items
 app.get("/", (req, res) => {
+  // TODO: remove just testing
+  // addCart(17, { id: 7 })
+  // .then((result) => {
+  //   console.log("GET /", result);
+  // });
+
   const userID = req.session.userID;
   getUserById(userID)
   .then((user) => {
@@ -81,6 +84,9 @@ app.get("/", (req, res) => {
       return;
       });
     })
+    .catch((err) => {
+      console.log(err.message);
+    });
   });
 
 // POST /logout
