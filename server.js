@@ -8,6 +8,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
+const { getUserById } = require("./db/queries/getUsers.js");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -50,22 +51,29 @@ const loginRoutes = require("./routes/login");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: mount other resources here, using the same pattern above
+// TODO: delete, was for demo purposes
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
+app.use("/login", loginRoutes);
 
 //app.use("/dashboard", )
 // Note: mount other resources here, using the same pattern above
-app.use("/login", loginRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-
 app.get("/", (req, res) => {
-  res.render("index", { user: null });
+  const userID = req.session.userID;
+  console.log("userID = ", userID)
+  getUserById(userID)
+  .then((user) => {
+    console.log("route: GET /", user)
+    res.render("index", { user });
+    return;
+  });
 });
 
 // POST /logout

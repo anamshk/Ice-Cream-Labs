@@ -27,7 +27,8 @@ router.get("/:id", (req, res)=> {
   req.session.userID = userID;
   getUserById(userID)
   .then((user) => {
-    return res.render("../views/index", { user });
+    res.render("../views/index", { user });
+    return;
   });
 });
 
