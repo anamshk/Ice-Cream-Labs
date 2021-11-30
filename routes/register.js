@@ -1,34 +1,10 @@
 const express = require('express');
 const router  = express.Router();
-<<<<<<< HEAD
-const {getEmailFromId, finduserbyEmail, verifyHash, generateRandomString} = require('../db/queries/userHelper');
-
-module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
-  return router;
-};
-
-router.get("/", (req, res) => {
-  
-});
 
 //POST Register if the user is new
-=======
 const bcrypt = require('bcryptjs');
 const addUser = require("../db/queries/addUser");
 const { getUserByEmail } = require("../db/queries/getUsers");
->>>>>>> master
 
 // GET redirect user to /register.ejs
 router.get("/", (req, res)=> {
@@ -48,7 +24,7 @@ router.post("/", (req, res) => {
 
   // create new user object from form submit
 
-  var salt = bcrypt.genSaltSync(10);
+  const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   const newUser = {
