@@ -70,6 +70,12 @@ app.get("/", (req, res) => {
   console.log("userID = ", userID)
   getUserById(userID)
   .then((user) => {
+    if (!user) {
+      res.status(401);
+      res.render("login", { error: "Unauthorized! Please login or register to add new urls!" });
+      return;
+    }
+
     console.log("route: GET /", user)
     res.render("index", { user });
     return;
