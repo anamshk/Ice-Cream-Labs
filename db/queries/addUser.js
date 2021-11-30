@@ -11,7 +11,6 @@ db.connect();
  * @return {Promise<{}>} A promise to the user.
  */
 
-//TODO: encrypt using bcrypt
 const addUser = (user) => {
   return db
     .query(`INSERT INTO users (name, phone_number, email_address, password)

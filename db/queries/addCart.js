@@ -12,7 +12,7 @@
 
 
  module.exports = (db) => {
-  const addCart = (userID, item) => {
+  const addCart = (userID, id) => {
     return db
    .query(`INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status)
    VALUES ($1, $2, $3, $4, $5)
@@ -22,7 +22,7 @@
      console.log("addCart promise: ", orderID);
      return db.query(`INSERT INTO order_line_items (item_id, order_master_id, quantity)
      VALUES ($1, $2, $3)
-     RETURNING *`, [item.id, orderID, 3])
+     RETURNING *`, [id, orderID, 1])
      .then((result) => {
        console.log("items added!", result.rows)
        return result.rows;

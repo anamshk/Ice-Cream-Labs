@@ -26,7 +26,7 @@
             <p><%= item.description %></p>
           </div>
           <!-- <img src="<%= item.photo_url %>"> -->
-          <form method="POST" action="/cart/<%= item %>">
+          <form method="POST" action="/cart/<%= item.id %>/<%= user.user_id %>">
             <button class="plus">+</button>
           </form>
         </div>

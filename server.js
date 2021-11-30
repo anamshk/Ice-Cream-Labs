@@ -15,8 +15,6 @@ const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
-// TODO: remove just testing
-// const { addCart } = require("./db/queries/addCart")(db);
 const { getUserById } = require("./db/queries/getUsers.js")(db);
 const { getItems } = require("./db/queries/getItems")(db);
 
@@ -49,6 +47,7 @@ app.use(cookieSession({
 const registerRoutes = require("./routes/register");
 const admin = require("./routes/admin/admin");
 const loginRoutes = require("./routes/login");
+const cartRoutes = require("./routes/cart");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -56,6 +55,7 @@ const loginRoutes = require("./routes/login");
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
 app.use("/login", loginRoutes);
+app.use("/cart", cartRoutes(db))
 
 //app.use("/dashboard", )
 // Note: mount other resources here, using the same pattern above
@@ -63,18 +63,12 @@ app.use("/login", loginRoutes);
 // Home page
 // GET / check if user logged in and render index page with all items
 app.get("/", (req, res) => {
-  // TODO: remove just testing
-  // addCart(17, { id: 7 })
-  // .then((result) => {
-  //   console.log("GET /", result);
-  // });
-
   const userID = req.session.userID;
   getUserById(userID)
   .then((user) => {
     if (!user) {
       res.status(401);
-      res.render("login", { error: "Unauthorized! Please login or register to add new urls!" });
+      res.render("login", { error: "Unauthorized! Please login or register!" });
       return;
     }
     // call get /item
