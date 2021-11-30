@@ -1,3 +1,4 @@
+// TODO: delete, getUser and addUser are doing functions below
 // helper function to insert users into Users table
 const { Pool } = require("pg");
 const dbParams = require("../../lib/db.js");
