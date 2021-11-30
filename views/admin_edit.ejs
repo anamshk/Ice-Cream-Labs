@@ -5,6 +5,7 @@
   <title>Edit</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/variables.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -16,28 +17,31 @@
 <body>
   <h1></h1>
   <main>
-    <form>
+    <form method="POST" action="/admin/admin_add">
       <div class="form-group">
         <label for="itemName">Item Name</label>
-        <input type="itemName" class="form-control" id="itemName" placeholder="">
+        <input name="title" class="form-control" id="itemName" placeholder="">
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <input type="description" class="form-control" id="description" placeholder="">
+        <input name="description" class="form-control" id="description" placeholder="">
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="price" class="form-control" id="price" placeholder="">
+        <input name="price" class="form-control" id="price" placeholder="">
       </div>
       <div class="form-group">
         <label for="inventory">Inventory</label>
-        <input type="inventory" class="form-control" id="inventory" placeholder="">
+        <input name="inventory" class="form-control" id="inventory" placeholder="">
       </div>
       <div class="form-group">
         <label for="photo_url">Photo Url</label>
-        <input type="photo_url" class="form-control" id="photo_url" placeholder="">
+        <input name="photo_url" class="form-control" id="photo_url" placeholder="">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <form method="POST" action="/item/:id/delete">
+      <button type="delete" class="btn btn-primary">Delete this item</button>
     </form>
   </main>
 </body>

@@ -1,5 +1,7 @@
 const express = require('express');
 const router  = express.Router();
+
+//POST Register if the user is new
 const bcrypt = require('bcryptjs');
 const addUser = require("../db/queries/addUser");
 const { getUserByEmail } = require("../db/queries/getUsers");
@@ -22,7 +24,7 @@ router.post("/", (req, res) => {
 
   // create new user object from form submit
 
-  var salt = bcrypt.genSaltSync(10);
+  const salt = bcrypt.genSaltSync(10);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
   const newUser = {

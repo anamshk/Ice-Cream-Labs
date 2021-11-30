@@ -10,10 +10,10 @@ const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+const db = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
 
 const { getUserById } = require("./db/queries/getUsers.js")(db);
 const { getItems } = require("./db/queries/getItems")(db);

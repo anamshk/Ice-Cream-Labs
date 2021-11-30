@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Order in queue</title>
+<title></title>  
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -15,6 +15,15 @@
 
 <body>
   <h1></h1>
+  <form class="form-inline" action="/admin/order/:id" method="GET">
+    <div class="form-group mb-2">
+      <button type="submit" class="btn btn-primary">View All Order</button>
+    </div>
+  </form>
+  <form class="form-inline" action="/admin/orders_in_queue" method="GET">
+    <div class="form-group mb-2">
+      <button type="submit" class="btn btn-primary">Completed</button>
+    </div>
+  </form>
 </body>
-
 </html>
