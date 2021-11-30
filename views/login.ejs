@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>Login</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -14,8 +14,16 @@
 </head>
 
 <body>
-  <%- include('partials/_header.ejs') %>
-  <h1>Have fun! 🥔</h1>
+  <h1>Login</h1>
+  <%- include('partials/_error') %>
+  <form method="POST" action="/login">
+    <label for="email_address">Email: </label>
+    <input name="email_address" type="text">
+    <label for="password">Password: </label>
+    <input name="password" type="password">
+    <button type="submit">Submit</button>
+  </form>
+  <a href="register">New? Register here</a>
 </body>
 
 </html>

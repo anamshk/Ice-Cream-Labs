@@ -7,6 +7,7 @@ const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -33,20 +34,27 @@ app.use(
 
 app.use(express.static("public"));
 
+app.use(cookieSession({
+  name: "session",
+  keys: ["key"],
+}));
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
 
-const registerRoutes = require("./routes/users");
+const registerRoutes = require("./routes/register");
+const loginRoutes = require("./routes/login");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
+// Note: mount other resources here, using the same pattern above
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 app.use("/register", registerRoutes);
-// Note: mount other resources here, using the same pattern above
+app.use("/login", loginRoutes);
 
 // Home page
 // Warning: avoid creating more routes in this file!
@@ -54,6 +62,12 @@ app.use("/register", registerRoutes);
 
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+// POST /logout
+app.post("/logout", (req, res) => {
+  req.session = null;
+  res.redirect("/login");
 });
 
 app.listen(PORT, () => {
