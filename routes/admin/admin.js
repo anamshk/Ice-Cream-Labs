@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('../../lib/db');
+const { route } = require('../register');
 const router  = express.Router();
 
 //GET THE ORDERS HOME PAGE FOR THE ADMIN
@@ -20,6 +21,10 @@ router.get('/orders_in_queue', (req, res) => {
   res.render("orders_in_queue");
 });
 
+router.get('/order/:id', (req, res) => {
+  res.render("order/:id");
+});
+
 //POSTS
 router.post('/admin_edit', (req, res) => {
   const item = req.body;
@@ -27,5 +32,16 @@ router.post('/admin_edit', (req, res) => {
   db.addMenuItem(item);
 });
 
+router.post('/item/:id', (req, res) => {
+  const item = req.body;
+  console.log(item);
+  db.removeMenuItem(item);
+});
+
+router.post('/order/:id', (req, res) => {
+  const itemId = req.body[0];
+  console.log(itemId);
+  db.orderId(itemId);
+});
 
 module.exports = router;

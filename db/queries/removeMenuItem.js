@@ -3,9 +3,9 @@ const dbParams = require("../../lib/db");
 const db = new Pool(dbParams);
 db.connect();
 
-const addMenuItem = (item) => {
+const removeMenuItem = (item) => {
   return db
-    .query(`INSERT INTO items (title, description, photo_url, price, inventory)
+    .query(`DELETE FROM items (title, description, photo_url, price, inventory)
     VALUES($1, $2, $3, $4, $5) 
     RETURNING *;`, [item.title, item.description, item.photo_url, item.price, item.inventory])
     .then((result) => result.rows[0])
@@ -14,4 +14,4 @@ const addMenuItem = (item) => {
     });
 };
 
-module.exports = addMenuItem;
+module.exports = removeMenuItem;
