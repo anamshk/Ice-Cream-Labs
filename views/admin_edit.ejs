@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Admin Dashboard</title>
+  <title>Edit</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -16,34 +16,26 @@
 <body>
   <h1></h1>
   <main>
-    
-    <form class="form-inline" action="/admin/admin_edit" method="POST">
-      <div class="form-group mb-2">
-        <label for="itemName">Item Name</label>
-          <input class="form-control" type="text" name="itemName" placeholder="" style="width: 300px; margin: 1em">
-        <label for="description">Description</label>
-          <input class="form-control" type="text" name="description" placeholder="" style="width: 300px; margin: 1em">
-        <label for="price">Price</label>
-          <input class="form-control" type="text" name="price" placeholder="" style="width: 300px; margin: 1em">
-        <label for="inventory">Inventory</label>
-          <input class="form-control" type="text" name="inventory" placeholder="" style="width: 300px; margin: 1em">
-        <label for="photo_url">Photo Url</label>
-          <input class="form-control" type="text" name="photo_url" placeholder="" style="width: 300px; margin: 1em">
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
-    </form>
     <form>
       <div class="form-group">
         <label for="itemName">Item Name</label>
         <input type="itemName" class="form-control" id="itemName" placeholder="">
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label for="description">Description</label>
+        <input type="description" class="form-control" id="description" placeholder="">
       </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="price" class="form-control" id="price" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="inventory">Inventory</label>
+        <input type="inventory" class="form-control" id="inventory" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="photo_url">Photo Url</label>
+        <input type="photo_url" class="form-control" id="photo_url" placeholder="">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
