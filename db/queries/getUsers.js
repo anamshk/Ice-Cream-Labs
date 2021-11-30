@@ -1,4 +1,4 @@
-// helper function to insert users into Users table
+// // helper function to insert users into Users table
 const bcrypt = require('bcryptjs');
 const { Pool } = require("pg");
 const dbParams = require("../../lib/db");

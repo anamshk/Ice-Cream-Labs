@@ -9,12 +9,13 @@ const app = express();
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 const { getUserById } = require("./db/queries/getUsers.js");
+const { getItems } = require("./db/queries/getItems");
 
 // PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+// const dbParams = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -52,8 +53,8 @@ const loginRoutes = require("./routes/login");
 // Note: Feel free to replace the example routes below with your own
 // Note: mount other resources here, using the same pattern above
 // TODO: delete, was for demo purposes
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+// app.use("/api/users", usersRoutes(db));
+// app.use("/api/widgets", widgetsRoutes(db));
 
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
@@ -63,11 +64,9 @@ app.use("/login", loginRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
+// GET / check if user logged in and render index page with all items
 app.get("/", (req, res) => {
   const userID = req.session.userID;
-  console.log("userID = ", userID)
   getUserById(userID)
   .then((user) => {
     if (!user) {
@@ -75,12 +74,14 @@ app.get("/", (req, res) => {
       res.render("login", { error: "Unauthorized! Please login or register to add new urls!" });
       return;
     }
-
-    console.log("route: GET /", user)
-    res.render("index", { user });
-    return;
+    // call get /item
+    getItems()
+    .then((items) => {
+      res.render("index", { user, items });
+      return;
+      });
+    })
   });
-});
 
 // POST /logout
 app.post("/logout", (req, res) => {
