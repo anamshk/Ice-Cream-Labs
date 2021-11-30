@@ -10,10 +10,10 @@ const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 
 // PG database client/connection setup
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
-db.connect();
+// const { Pool } = require("pg");
+const db = require("./lib/db.js");
+// const db = new Pool(dbParams);
+// db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -52,7 +52,6 @@ const loginRoutes = require("./routes/login");
 // Note: mount other resources here, using the same pattern above
 app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
-
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
 
