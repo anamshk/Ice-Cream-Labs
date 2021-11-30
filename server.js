@@ -43,8 +43,8 @@ app.use(cookieSession({
 // Note: Feel free to replace the example routes below with your own
 const usersRoutes = require("./routes/users");
 const widgetsRoutes = require("./routes/widgets");
-
 const registerRoutes = require("./routes/register");
+const admin = require("./routes/admin/admin");
 const loginRoutes = require("./routes/login");
 
 // Mount all resource routes
@@ -54,6 +54,10 @@ app.use("/api/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 
 app.use("/register", registerRoutes);
+app.use("/admin", admin);
+
+//app.use("/dashboard", )
+// Note: mount other resources here, using the same pattern above
 app.use("/login", loginRoutes);
 
 // Home page
