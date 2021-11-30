@@ -19,7 +19,7 @@ CREATE TABLE items (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   photo_url VARCHAR(255) NOT NULL,
-  price INTEGER NOT NULL,
+  price SMALLINT NOT NULL,
   inventory INTEGER NOT NULL
 );
 

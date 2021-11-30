@@ -1,6 +1,6 @@
 const express = require('express');
-const bcrypt = require('bcryptjs');
 const router  = express.Router();
+<<<<<<< HEAD
 const {getEmailFromId, finduserbyEmail, verifyHash, generateRandomString} = require('../db/queries/userHelper');
 
 module.exports = (db) => {
@@ -24,37 +24,55 @@ router.get("/", (req, res) => {
 });
 
 //POST Register if the user is new
+=======
+const bcrypt = require('bcryptjs');
+const addUser = require("../db/queries/addUser");
+const { getUserByEmail } = require("../db/queries/getUsers");
+>>>>>>> master
 
-router.get("/register", (req, res)=> {
-  const templateVars = {
-    user: users[req.session.id],
-    phoneNumber: phone_number[req.session["phone_number"]],
-    email: getEmailFromId(req.session.id, users),
-    password: req.session["password"]
-  };
-  
-  res.render("register", templateVars);
+// GET redirect user to /register.ejs
+router.get("/", (req, res)=> {
+  res.render("../views/register", { error: null });
 });
 
-router.post("/register", (req,res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const user = finduserbyEmail(user, email);
-  console.log(req.body);
-  const hashedPassword = bcrypt.hashSync(password, 10);
+//POST register/save new user to users table and redirect to /login
+router.post("/", (req, res) => {
+  const { name, email_address, phone_number, password } = req.body;
 
-  if (email === "" || password === "") {
-    res.redirect("Incorrect email or password");
+  // check if inputs are blank and return error message
+  if (email_address === "" || password === "" || name === "" || phone_number === "") {
+    res.status(400);
+    res.render("register", { error: "Values cannot be empty! Please try again" });
+    return;
   }
 
-  if (!user) {
-    const userId = generateRandomString();
-    user[userId] = { id: userId, email, password: hashedPassword };
-    req.session.id = userId;
-  } else {
-    res.redirect("_404error");
-  }
-  res.redirect("/");
+  // create new user object from form submit
+
+  var salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
+
+  const newUser = {
+    name: name,
+    email_address: email_address,
+    password: hashedPassword,
+    phone_number: phone_number,
+  };
+
+  getUserByEmail(newUser.email_address)
+    .then((user) => {
+      // if user exists, display error message
+      if (user) {
+        res.status(400);
+        res.render("register", { error: "Email already registered! Try restting password" });
+        return;
+      } else {
+        // add newUser if user does not exist
+        addUser(newUser);
+        res.json(newUser);
+        // res.render("../views/login", { error: null });
+      }
+
+    });
 });
 
 module.exports = router;
