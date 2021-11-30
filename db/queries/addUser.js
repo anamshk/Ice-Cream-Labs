@@ -24,4 +24,5 @@ const addUser = (user) => {
       console.log(err.message);
     });
 };
+
 module.exports = addUser;
