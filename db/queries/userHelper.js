@@ -1,16 +1,16 @@
 // helper function to insert users into Users table
 const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
+const dbParams = require("../../lib/db.js");
 const db = new Pool(dbParams);
 db.connect();
 
 const bcrypt = require('bcryptjs');
 //check to see if email exists
 
-const getUser (field) => {
+const getUser = (field) => {
   // sql query to get user by field we pass
-  return db.query()
-}
+  return db.query();
+};
 
 const getEmailFromId = (userid, database) => {
   return (database[userid]) ? database[userid].email : null;
