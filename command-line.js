@@ -10,6 +10,8 @@ const config = {
   port: 5432,
 };
 
+
+
 const client = new Client(config);
 
 client.connect(() => {
@@ -20,12 +22,12 @@ const verb = process.argv[2];
 
 switch (verb) {
 case 'browse':
-  client.query('SELECT * FROM users;')
+  client.query('SELECT * FROM items;')
     .then((results) => {
       console.log(results.rows);
       client.end();
     });
-  
+
   break;
 
 case 'read':
