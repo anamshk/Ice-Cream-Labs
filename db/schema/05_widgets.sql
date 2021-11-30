@@ -1,3 +1,4 @@
+-- TODO: delete, was used for as sample
 -- Drop and recreate Widgets table (Example)
 
 DROP TABLE IF EXISTS widgets CASCADE;
