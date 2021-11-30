@@ -16,15 +16,15 @@ router.get('/admin_edit', (req, res) => {
   res.render("admin_edit");
 });
 
-router.get('/order_in_queue', (req, res) => {
-res.render("order_in_queue");
+router.get('/orders_in_queue', (req, res) => {
+  res.render("orders_in_queue");
 });
 
 //POSTS
 router.post('/admin_edit', (req, res) => {
-  var item = req.body
-  console.log(item)
-  db.addMenuItem(item)
+  const item = req.body;
+  console.log(item);
+  db.addMenuItem(item);
 });
 
 

@@ -17,7 +17,7 @@ const addUser = (user) => {
     .query(`INSERT INTO users (name, phone_number, email_address, password)
     VALUES($1, $2, $3, $4) RETURNING *;`, [user.name, user.phone_number, user.email_address, user.password])
     .then((result) => {
-      console.log("successfully added user!", result.rows[0])
+      console.log("successfully added user!", result.rows[0]);
       // return result.rows[0];
     })
     .catch((err) => {
