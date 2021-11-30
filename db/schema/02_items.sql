@@ -6,6 +6,6 @@ CREATE TABLE items (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   photo_url VARCHAR(255) NOT NULL,
-  price NUMERIC NOT NULL,
+  price NUMERIC(3,2) NOT NULL,
   inventory INTEGER NOT NULL
 );
