@@ -1,8 +1,3 @@
-// const { Pool } = require("pg");
-// const dbParams = require("../../lib/db");
-// const db = new Pool(dbParams);
-// db.connect();
-
 /**
  *  1) create new order_master record with userID and then 2) add new item to order_line_item with id created from step one
  * @param {{email_address: string}} item
