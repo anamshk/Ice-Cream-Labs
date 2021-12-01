@@ -1,7 +1,8 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcryptjs');
-const { getUserById, getUserByEmail } = require("../db/queries/getUsers");
+const db = require("../lib/db.js");
+const { getUserById, getUserByEmail } = require("../db/queries/getUsers")(db);
 
 // GET redirect user to /login.ejs
 router.get("/", (req, res)=> {
