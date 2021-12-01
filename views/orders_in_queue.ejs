@@ -15,15 +15,26 @@
 
 <body>
   <h1></h1>
-  <form class="form-inline" action="/admin/orders_in_queue" method="GET">
-    <div class="form-group mb-2">
-      <button type="submit" class="btn btn-primary">View Order</button>
-    </div>
-  </form>
-  <form class="form-inline" action="/admin/orders_in_queue>" method="GET">
-    <div class="form-group mb-2">
-      <button type="submit" class="btn btn-primary">Completed</button>
-    </div>
-  </form>
+  <% for(let order of orders) { %>
+    <h2>Order # <%=order.id%></h2>
+    <tr>
+      <td>Customer: <%= order.name %></td>
+      <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
+      <newline><td>Ordered: <%= order.title %></td></newline> 
+      <newline><td>Quantity: <%= order.quantity %></td></newline>
+      <newline><td>status: <%= order.status %></td></newline>
+      <form class="form-inline" action="/admin/orders_in_queue" method="GET">
+        <div class="form-group mb-2">
+          <button type="submit" class="btn btn-primary">View Order</button>
+        </div>
+      </form>
+      <form class="form-inline" action="/admin/orders_in_queue>" method="GET">
+        <div class="form-group mb-2">
+          <button type="submit" class="btn btn-primary">Completed</button>
+        </div>
+      </form>
+    </tr>
+  <% } %>
+  
 </body>
 </html>

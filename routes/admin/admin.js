@@ -17,8 +17,6 @@ router.get('/', (req, res)=> {
 router.get('/admin_menu', (req, res)=> {
   return getMenu.getItems()
     .then(menu => {
-      // console.log("ITEMS:   ");
-      console.log(menu);
       const templateVars = {
         items: menu
       };
@@ -42,9 +40,8 @@ router.get('/admin_edit/:id', (req, res) => {
 });
 
 router.get('/orders_in_queue', (req, res) => {
-  return getOrders.getOrders()
+  return getOrders.orders()
     .then(order => {
-      // console.log("ITEMS:   ");
       console.log(order);
       const templateVars = {
         orders: order
@@ -73,7 +70,6 @@ router.post('/admin_add', (req, res) => {
 // });
 
 router.post('/item/:${id/delete', (req, res) => {
-  console.log("ITS HERE");
   const itemId = req.params.id;
   removeMenuItem(itemId)
     .then(() => {
