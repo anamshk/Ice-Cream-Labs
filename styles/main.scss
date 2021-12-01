@@ -1,7 +1,8 @@
 @import "variables";
 
-
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
   padding: 15px;
@@ -15,21 +16,18 @@ body {
   //background: $gradient-bg;
 }
 
-
-
 body > h1 {
   margin-top: 80px;
   color: $light-color;
   font-family: 'Pacifico',
   sans-serif;
-
+  .admin {
+    margin-bottom: 10px;
+  }
+  .index {
+    margin-top: 170px;
+  }
 }
-
-h1.index {
-  margin-top: 170px;
-}
-
-
 
 form {
   display: flex;
@@ -147,7 +145,6 @@ nav>div>form>input:last-of-type {
   align-self: flex-end;
 }
 
-
 // User Cart Box
 .menu-item {
   margin-bottom: 20px;
@@ -200,7 +197,6 @@ footer > img {
   height: 60px;
 }
 
-
 .btn-float{
 // background-color:red;
   position: sticky;
@@ -223,11 +219,6 @@ footer > img {
   width: 100%;
   background-color: #fff;
 }
-
-// #stack-items{
-//   display: flex;
-//   flex-direction: column;
-// }
 
 .cart {
   .item{
@@ -272,7 +263,7 @@ footer > img {
       margin-bottom: 0px;
       width: 30px;
       text-align: center;
-      background-color: #d1eeff;
+      background-color: #EBF0FF;
     }
   }
   .total{
@@ -285,5 +276,80 @@ footer > img {
     }
 
   }
+
+}
+
+#dashboard {
+  background: $admin-bg;
+
+  main{
+    display: flex;
+    flex-wrap: wrap;
+    div{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.login-nav {
+  display: flex;
+  a {
+    width: 50%;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:last-of-type{
+    text-align: right;
+  }
+}
+
+body.admin {
+  background: $admin-bg;
+  div.menu-item {
+        background: #fff;
+    border: 3px solid $light-color;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    header{
+      margin-top: 10px;
+      margin-left: 10px;
+      display: flex;
+      width: 100%;
+    }
+    footer{
+      width: 100%;
+      button{
+        box-shadow: none;
+        margin-left: 0px;
+        border-radius: 0px;
+        height: 40px;
+      }
+    }
+  }
+  h5 {
+    margin: 0px 0px 10px 0px;
+    font-size: 18px;
+    color: $dark-color;
+  }
+  h4:last-of-type {
+    color: gray;
+    font-weight: 300;
+  }
+  img{
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+
+  }
+}
+
+#small-link{
+  margin: 0px;
+  padding: 0px;
+  padding-bottom: 10px;
 
 }
