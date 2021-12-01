@@ -1,6 +1,6 @@
 <!-- TODO: added static header -->
 <div class="login-nav">
-  <% if(user) { %>
+  <% if(locals.user) { %>
     <label>Hello, <%= user.name %> </label>
     <form method="POST" action="/logout">
       <input id="logout" type="image" src="https://i.postimg.cc/0QznPTPp/logout-icon.png" alt="Submit" width="100"> 

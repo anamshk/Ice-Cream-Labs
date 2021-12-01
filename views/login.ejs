@@ -17,7 +17,7 @@
   <nav>
     <%- include('partials/_header-login') %>
   </nav>  
-  <h1>Login</h1>
+  <h1  class="index">Login</h1>
   <%- include('partials/_error') %>
   <form method="POST" action="/login">
     <label for="email_address">Email: </label>
@@ -26,7 +26,7 @@
     <input name="password" type="password">
     <button type="submit">Submit</button>
   </form>
-  <a href="register">New? Register here</a>
+  <a href="register" class="link-small">Don’t have a account? Register here</a>
 </body>
 
 </html>

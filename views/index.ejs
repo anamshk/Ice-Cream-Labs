@@ -27,7 +27,6 @@
             <h4>$<%= item.price %></h4>
             <p><%= item.description %></p>
           </div>
-          <!-- <img src="<%= item.photo_url %>"> -->
           <footer>
             <img src=<%= item.photo_url %> alt="<%= item.title %>">
             <form method="POST" action="/cart/<%= item.id %>">
@@ -36,7 +35,8 @@
           </footer>
         </div>
      <% } %>
-    <button class="cart">view cart</button>
-
+    <a href="./cart" class="cart">
+      <button class="big-btn">view cart</button>
+    </a>  
 </body>
 </html>
