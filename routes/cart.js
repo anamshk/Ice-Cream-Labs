@@ -95,7 +95,7 @@ module.exports = (db) => {
 
         editCartItem(quantity, order_master_id)
           .then((result) => {
-            res.send(result);
+            res.redirect("/cart");
             return;
           })
           .catch((err) => {
