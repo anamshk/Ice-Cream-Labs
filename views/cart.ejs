@@ -35,14 +35,15 @@
 		</footer>
 	</div>
 	<!-- price total -->
-	<div>
+	
 		<% totalSum += item.quantity * item.price; %>
 	</div>
   <% } %>
-	<h2>Total</h2>
+	<div class="total">
+		<h2>Total</h2>
 		<h2>$<%= totalSum %></h2>
-
-  <form method="POST" action="/cart/<%= user.id %>/submit">
+	</div>
+  <form method="POST" action="/cart/<%= user.id %>/submit" class="btn-float">
 	  <button type="submit" class="big-btn btn-float">order for pick-up</button>
   </form>
 </body>
