@@ -10,10 +10,9 @@ module.exports = (db) => {
    .query(`SELECT * FROM order_line_items
     JOIN order_master ON order_master.id = order_master_id
     JOIN items ON items.id = item_id
-    WHERE user_id = $1
+    WHERE user_id = $1 AND status <> 'completed'
     ORDER BY order_datetime;`, [userID])
     .then((result) => {
-      console.log("cart items found!!", result.rows, userID)
       return result.rows;
     })
     .catch((err) => {

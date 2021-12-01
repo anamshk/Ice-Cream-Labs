@@ -35,7 +35,7 @@
 		<h2>$<%= item.quantity * item.price %></h2>
 	</div>
   <% } %>
-  <form method="POST" action="/cart">
+  <form method="POST" action="/cart/<%= user.id %>/submit">
 	  <button class="big-btn">order for pick-up</button>
   </form>
 </body>

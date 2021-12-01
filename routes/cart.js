@@ -20,6 +20,7 @@ module.exports = (db) => {
       // call get /item
       getCart(userID)
       .then((items) => {
+        console.log("GET /cart OrderID", items)
         res.render("../views/cart", { user, items });
         return;
         });
@@ -33,12 +34,24 @@ module.exports = (db) => {
     router.post("/:id", (req, res) => {
       const userID = req.session.userID;
       const id = req.params.id;
+      getUserById(userID)
+      .then((user) => {
+        if (!user) {
+          res.status(401);
+          res.render("login", { error: "Unauthorized! Please login or register!" });
+          return;
+        }
+        // call get /item
       // console.log("POST /cart:id", id)
-      addCart(userID, id).then((result) => {
-        // console.log("POST /cart/:item", result);
-        res.json(result);
+      addCart(userID, id)
+        .then((result) => {
+          res.redirect("/");
+          return;
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
       });
     });
-
     return router;
 };
