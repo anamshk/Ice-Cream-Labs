@@ -15,7 +15,7 @@ module.exports = (db) => {
 
   const deleteCartItem = (id) => {
     return db
-   .query(`DELETE order_line_items
+   .query(`DELETE FROM order_line_items
    WHERE order_master_id = $1
    RETURNING *`, [id])
    .then((result) => {

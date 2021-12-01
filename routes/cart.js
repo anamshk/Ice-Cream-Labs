@@ -103,5 +103,30 @@ module.exports = (db) => {
           });
       });
     });
+
+    // POST /cart/order_master_id/edit modifies cart item
+    router.post("/:order_master_id/delete", (req, res) => {
+      const userID = req.session.userID;
+      const order_master_id = req.params.order_master_id;
+      getUserById(userID).then((user) => {
+        if (!user) {
+          res.status(401);
+          res.render("login", {
+            error: "Unauthorized! Please login or register!",
+          });
+          return;
+        }
+
+        deleteCartItem(order_master_id)
+          .then((result) => {
+            console.log("POST /cart/delete: deleted!!!")
+            res.redirect("/cart");
+            return;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      });
+    });
   return router;
 };
