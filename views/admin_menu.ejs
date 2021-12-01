@@ -15,6 +15,19 @@
 
 <body>
   <h1></h1>
+  <% for(let item of items) { %>
+    <h2><%=item.title%></h2>
+    <tr>
+      <td><%= item.description %></td>
+      <newline><td><%= item.photo_url %></td></newline>
+      <newline><td><%= item.price %></td></newline> 
+      <newline><td><%= item.inventory %></td></newline>
+      <td><form method="GET" action="/admin/admin_edit"></td>
+        <button type="submit" class="btn btn-outline-primary">Edit</button>
+    </tr>
+    
+    </form>
+  <% } %> 
   <form class="form-inline" action="/admin/admin_edit" method="GET">
     <div class="form-group mb-2">
       <button type="submit" class="btn btn-primary">Add Item</button>

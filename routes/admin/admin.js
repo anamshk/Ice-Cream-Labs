@@ -2,6 +2,7 @@ const express = require('express');
 const db = require('../../lib/db');
 const addMenuItem = require('../../db/queries/addMenuItem');
 const { route } = require('../register');
+const getMenu = require('../../db/queries/getMenu');
 const router  = express.Router();
 
 
@@ -12,7 +13,15 @@ router.get('/', (req, res)=> {
 });
 
 router.get('/admin_menu', (req, res)=> {
-  res.render("admin_menu");
+  return getMenu.getItems()
+    .then(menu => {
+      // console.log("ITEMS:   ");
+      // console.log(menu);
+      const templateVars = {
+        items: menu
+      };
+      res.render("admin_menu", templateVars);
+    });
 });
 
 router.get('/admin_edit', (req, res) => {
