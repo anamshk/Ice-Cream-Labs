@@ -14,22 +14,29 @@
 </head>
 
 <body>
-  <%- include('partials/_header.ejs') %>
-  <h1>Menu</h1>
+  <nav>
+    <%- include('partials/_header.ejs') %>
+  </nav>
+    <h1>Menu</h1>
 
       <% for(let item of Object.values(items)) { %>
-         <!-- Menu item for user -->
+         <!-- Menu item for user -->        
         <div class="menu-item">
           <div class="content">
             <h3><%= item.title %></h3>
-            <h4><%= item.price %></h4>
+            <h4>$<%= item.price %></h4>
             <p><%= item.description %></p>
           </div>
-          <!-- <img src="<%= item.photo_url %>"> -->
-          <form method="POST" action="/cart/<%= item.id %>">
-            <button class="plus">+</button>
-          </form>
+          <footer>
+            <img src=<%= item.photo_url %> alt="<%= item.title %>">
+            <form method="POST" action="/cart/<%= item.id %>">
+              <button class="plus">+</button>
+            </form>
+          </footer>
         </div>
      <% } %>
+    <a href="./cart" class="btn-float">
+      <button class="big-btn">view cart</button>
+    </a>  
 </body>
 </html>

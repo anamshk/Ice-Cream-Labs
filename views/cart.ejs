@@ -14,6 +14,11 @@
 </head>
 
 <body class="cart">
+	<nav>
+    <%- include('partials/_header') %>
+  </nav>  
+	<h1>my cart</h1>
+	<% let totalSum = 0; %>
   <% for(let item of Object.values(items)) { %>
 	<div class="item">
 		<header>
@@ -30,13 +35,16 @@
 		</footer>
 	</div>
 	<!-- price total -->
-	<div>
-		<h2>Total</h2>
-		<h2>$<%= item.quantity * item.price %></h2>
+	
+		<% totalSum += item.quantity * item.price; %>
 	</div>
   <% } %>
-  <form method="POST" action="/cart/<%= user.id %>/submit">
-	  <button type="submit" class="big-btn">order for pick-up</button>
+	<div class="total">
+		<h2>Total</h2>
+		<h2>$<%= totalSum %></h2>
+	</div>
+  <form method="POST" action="/cart/<%= user.id %>/submit" class="btn-float">
+	  <button type="submit" class="big-btn btn-float">order for pick-up</button>
   </form>
 </body>
 </html>
