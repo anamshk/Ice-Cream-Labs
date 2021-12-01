@@ -45,8 +45,8 @@ router.post("/", (req, res) => {
       } else {
         // add newUser if user does not exist
         addUser(newUser);
-        res.json(newUser);
-        // res.render("../views/login", { error: null });
+        // res.json(newUser);
+        res.render("../views/login", { error: null });
       }
 
     });
