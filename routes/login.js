@@ -12,7 +12,7 @@ router.get("/", (req, res)=> {
   .then((user) => {
     if (user) {
       // if user is logged in, redirect to home (/)
-      res.render("../views/index", { user });
+      res.redirect("/");
       return;
     }
 
@@ -28,7 +28,7 @@ router.get("/:id", (req, res)=> {
   req.session.userID = userID;
   getUserById(userID)
   .then((user) => {
-    res.render("../views/index", { user });
+    res.redirect("/");
     return;
   });
 });
@@ -61,7 +61,7 @@ router.post("/", (req, res) => {
     }
 
     req.session.userID = user.id;
-    res.render("../views/index", { user });
+    res.redirect("/");
     return;
   });
 });
