@@ -3,7 +3,7 @@ const db = require('../../lib/db');
 const getMenu = require('../../db/queries/getMenu');
 const addMenuItem = require('../../db/queries/addMenuItem');
 const removeMenuItem = require('../../db/queries/removeMenuItem');
-const getOrders = require('../../db/queries/getOrders');
+const {orders, orderById} = require('../../db/queries/getOrders');
 const { route } = require('../register');
 const router  = express.Router();
 
@@ -40,7 +40,7 @@ router.get('/admin_edit/:id', (req, res) => {
 });
 
 router.get('/orders_in_queue', (req, res) => {
-  return getOrders.orders()
+  return orders()
     .then(order => {
       console.log(order);
       const templateVars = {
@@ -52,7 +52,16 @@ router.get('/orders_in_queue', (req, res) => {
 
 
 router.get('/order/:id', (req, res) => {
-  res.render("order_id");
+  return orderById(req.params.id)
+    .then(order => {
+      const templateVars = {
+        OrderById: order
+      };
+      res.render("order_id", templateVars);
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
 });
 
 //POSTS
@@ -79,7 +88,10 @@ router.post('/item/:${id/delete', (req, res) => {
 });
 
 router.post('/order/:id', (req, res) => {
-  const itemId = req.body[0];
+  // const order = req.body[0];
+  // if (order.id) {
+
+  // };
   // queries.orderId(itemId);
 });
 

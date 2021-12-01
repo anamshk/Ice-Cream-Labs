@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Edit</title>
+  <title></title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/styles/variables.css" type="text/css" />
@@ -14,8 +14,11 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <h1></h1>
+<body class="admin"> 
+  <nav>
+    <%- include('partials/_header') %>
+  </nav>  
+  <h1>Edit</h1>
   <main>
     <form method="POST" action="/admin/admin_add">
       <div class="form-group">
@@ -38,7 +41,7 @@
         <label for="photo_url">Photo Url</label>
         <input name="photo_url" class="form-control" id="photo_url" value=<%= item.photo_url %>>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Save</button>
     </form>
     <form method="POST" action="/admin/item/<%= item.id %>/delete">
       <button type="submit" class="btn btn-primary">Delete this item</button>

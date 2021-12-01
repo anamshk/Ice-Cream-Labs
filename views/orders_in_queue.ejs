@@ -13,17 +13,20 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <h1></h1>
+<body class="admin"> 
+  <nav>
+    <%- include('partials/_header') %>
+  </nav>  
+  <h1>Orders in queue</h1>
   <% for(let order of orders) { %>
     <h2>Order # <%=order.id%></h2>
     <tr>
-      <td>Customer: <%= order.name %></td>
+      <td>Customer: <%= order.name %> |  <%= order.phone_number %></td>
       <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
       <newline><td>Ordered: <%= order.title %></td></newline> 
       <newline><td>Quantity: <%= order.quantity %></td></newline>
-      <newline><td>status: <%= order.status %></td></newline>
-      <form class="form-inline" action="/admin/orders_in_queue" method="GET">
+      <!-- <newline><td>status: <%= order.status %></td></newline> -->
+      <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET">
         <div class="form-group mb-2">
           <button type="submit" class="btn btn-primary">View Order</button>
         </div>
