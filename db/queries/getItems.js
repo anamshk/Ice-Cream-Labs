@@ -9,7 +9,6 @@
     return db
       .query("SELECT * FROM items")
       .then((result) => {
-        console.log("getItems promise", result.rows)
         return result.rows;
       })
       .catch((err) => {

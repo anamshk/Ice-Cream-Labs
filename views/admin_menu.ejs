@@ -18,18 +18,40 @@
     <%- include('partials/_header') %>
   </nav>  
   <h1>admin menu</h1>
+  <p id="small-link"><a href="../admin">back</a></p>
   <% for(let item of items) { %>
-    <h2><%=item.title%></h2>
-    <tr>
-      <td><%= item.description %></td>
-      <newline><td><%= item.photo_url %></td></newline>
-      <newline><td><%= item.price %></td></newline> 
-      <newline><td><%= item.inventory %></td></newline>
-      <td><form method="GET" action="/admin/admin_edit/<%= item.id %>"></td>
+    
+    <div class="menu-item">
+      <header>
+        <div class="content">
+          <h5><%=item.title%></h5>
+          <h4>Price: $<%= item.price %> | Inventory: <%= item.inventory %></h4>
+          <h4><%= item.description %></h4>
+        </div>
+        <img src="<%= item.photo_url %>">
+      </header>
+      <footer>
+        <form method="GET" action="/admin/admin_edit/<%= //item.id %>"><button type="submit" class="btn btn-outline-primary edit mid-btn">Edit</button></form>
+        
+        <!-- <button class="edit"></button> -->
+      </footer>
+    </div>
+
+
+    <!-- <tr>
+      <td><%= //item.description %></td>
+      <newline><td>photo url: <%= //item.photo_url %></td></newline>
+      <newline><td>price: <%= //item.price %></td></newline> 
+      <newline><td>inventory: <%= //item.inventory %></td></newline>
+      <td><form method="GET" action="/admin/admin_edit/<%= //item.id %>"></td>
         <button type="submit" class="btn btn-outline-primary">Edit</button>
-    </tr>
+    </tr> -->
   <% } %> 
   <form class="form-inline" action="/admin/admin_edit/" method="GET">
+<<<<<<< HEAD
     <button type="submit" class="btn btn-outline-primary">Add item</button>
+=======
+>>>>>>> 1f522861f55667c2abbe2abc72e926983023a40c
 
+ 
 </html>

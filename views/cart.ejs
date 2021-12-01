@@ -1,1 +1,50 @@
-<h1>CART!</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>My Cart</title>
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+<body class="cart">
+	<nav>
+    <%- include('partials/_header') %>
+  </nav>  
+	<h1>my cart</h1>
+	<% let totalSum = 0; %>
+  <% for(let item of Object.values(items)) { %>
+	<div class="item">
+		<header>
+		<form method="POST" action="" class="quantity">
+	        <input name="quantity" value="<%= item.quantity %>">
+	    </form>
+		<form method="POST" action="" class="delete">
+	      <button type="delete" class="btn btn-primary">delete</button>
+	  </form>
+		</header>
+		<footer>
+			<h3><%= item.title %></h3>
+			<h4>$<%= item.price %></h4>
+		</footer>
+	</div>
+	<!-- price total -->
+	
+		<% totalSum += item.quantity * item.price; %>
+	</div>
+  <% } %>
+	<div class="total">
+		<h2>Total</h2>
+		<h2>$<%= totalSum %></h2>
+	</div>
+  <form method="POST" action="/cart/<%= user.id %>/submit" class="btn-float">
+	  <button type="submit" class="big-btn btn-float">order for pick-up</button>
+  </form>
+</body>
+</html>

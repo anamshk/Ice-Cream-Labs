@@ -14,22 +14,26 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <h1></h1>
+<body id="dashboard">
+
+  <nav>
+    <%- include('partials/_header') %>
+  </nav>  
+  <h1>admin</h1>
   <main>
     <form class="form-inline" action="/admin/admin_menu" method="GET">
       <div class="form-group mb-2">
-        <button type="submit" class="btn btn-primary">Menu & Inventory</button>
+        <button type="submit" class="btn big-btn">Menu & Inventory</button>
       </div>
     </form>
     <form class="form-inline" action="/admin/orders_in_queue" method="GET">
       <div class="form-group mb-2">
-        <button type="submit" class="btn btn-primary">Orders in queue</button>
+        <button type="submit" class="btn big-btn">Orders in queue</button>
       </div>
     </form>
     <form class="form-inline" action="/admin/orders_in_queue" method="GET">
       <div class="form-group mb-2">
-        <button type="submit" class="btn btn-primary">List orders</button>
+        <button type="submit" class="btn big-btn">List orders</button>
       </div>
     </form>
 

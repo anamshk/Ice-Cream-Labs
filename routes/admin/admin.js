@@ -5,6 +5,7 @@ const addMenuItem = require('../../db/queries/addMenuItem');
 const removeMenuItem = require('../../db/queries/removeMenuItem');
 const {orders, orderById} = require('../../db/queries/getOrders');
 const { route } = require('../register');
+const update = require('../../db/queries/updateOrder');
 const router  = express.Router();
 
 
@@ -88,7 +89,11 @@ router.post('/item/:${id/delete', (req, res) => {
 });
 
 router.post('/order/:id', (req, res) => {
-  // const order = req.body[0];
+  const orderId = req.params.id;
+  update(orderId)
+    .then(()=> {
+      res.redirect("/admin/orders_in_queue");
+    });
   // if (order.id) {
 
   // };
