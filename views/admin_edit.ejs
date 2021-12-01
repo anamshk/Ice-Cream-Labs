@@ -20,28 +20,28 @@
     <form method="POST" action="/admin/admin_add">
       <div class="form-group">
         <label for="itemName">Item Name</label>
-        <input name="title" class="form-control" id="itemName" placeholder="">
+        <input name="title" class="form-control" id="itemName" value=<%= item.title %>>
       </div>
       <div class="form-group">
         <label for="description">Description</label>
-        <input name="description" class="form-control" id="description" placeholder="">
+        <input name="description" class="form-control" id="description" value=<%= item.description %>>
       </div>
       <div class="form-group">
         <label for="price">Price</label>
-        <input name="price" class="form-control" id="price" placeholder="">
+        <input name="price" class="form-control" id="price" value=<%= item.price %>>
       </div>
       <div class="form-group">
         <label for="inventory">Inventory</label>
-        <input name="inventory" class="form-control" id="inventory" placeholder="">
+        <input name="inventory" class="form-control" id="inventory" value=<%= item.inventory %>>
       </div>
       <div class="form-group">
         <label for="photo_url">Photo Url</label>
-        <input name="photo_url" class="form-control" id="photo_url" placeholder="">
+        <input name="photo_url" class="form-control" id="photo_url" value=<%= item.photo_url %>>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <form method="POST" action="/item/:id/delete">
-      <button type="delete" class="btn btn-primary">Delete this item</button>
+    <form method="POST" action="/admin/item/<%= item.id %>/delete">
+      <button type="submit" class="btn btn-primary">Delete this item</button>
     </form>
   </main>
 </body>

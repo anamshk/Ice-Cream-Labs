@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Menu</title>
+  <title>Admin: Menu </title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -22,13 +22,11 @@
       <newline><td><%= item.photo_url %></td></newline>
       <newline><td><%= item.price %></td></newline> 
       <newline><td><%= item.inventory %></td></newline>
-      <td><form method="GET" action="/admin/admin_edit"></td>
+      <td><form method="GET" action="/admin/admin_edit/<%= item.id %>"></td>
         <button type="submit" class="btn btn-outline-primary">Edit</button>
     </tr>
-    
-    </form>
   <% } %> 
-  <form class="form-inline" action="/admin/admin_edit" method="GET">
+  <form class="form-inline" action="/admin/admin_edit/" method="GET">
     <div class="form-group mb-2">
       <button type="submit" class="btn btn-primary">Add Item</button>
     </div>
