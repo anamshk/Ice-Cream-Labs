@@ -201,15 +201,11 @@ footer > img {
 }
 
 
-.cart{
+.btn-float{
 // background-color:red;
   position: sticky;
   bottom: 15px;
   z-index: 100;
-  width: 100%;
-}
-
-.box100{
   width: 100%;
 }
 
@@ -232,3 +228,24 @@ footer > img {
 //   display: flex;
 //   flex-direction: column;
 // }
+
+.cart {
+  .item{
+    display: flex;
+  }
+  header{
+    display: flex;
+    button{
+      margin-top: 0px;
+    }
+  }
+  footer{
+    h3, h4 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+  }
+  input {
+    width: 30px;
+  }
+}
