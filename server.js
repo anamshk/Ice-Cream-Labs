@@ -64,6 +64,7 @@ app.use("/cart", cartRoutes(db))
 // GET / check if user logged in and render index page with all items
 app.get("/", (req, res) => {
   const userID = req.session.userID;
+  console.log("redirect occored");
   getUserById(userID)
   .then((user) => {
     if (!user) {
