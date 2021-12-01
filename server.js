@@ -9,7 +9,8 @@ const app = express();
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 const db = require("./lib/db.js");
-
+const { getUserById } = require("./db/queries/getUsers.js")(db);
+const { getItems } = require("./db/queries/getItems")(db);
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -34,33 +35,47 @@ app.use(cookieSession({
   keys: ["key"],
 }));
 
+
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const widgetsRoutes = require("./routes/widgets");
 const registerRoutes = require("./routes/register");
 const admin = require("./routes/admin/admin");
 const loginRoutes = require("./routes/login");
+const cartRoutes = require("./routes/cart");
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
-// Note: mount other resources here, using the same pattern above
-app.use("/api/users", usersRoutes(db));
-app.use("/api/widgets", widgetsRoutes(db));
+
 app.use("/register", registerRoutes);
 app.use("/admin", admin);
-
-//app.use("/dashboard", )
-// Note: mount other resources here, using the same pattern above
 app.use("/login", loginRoutes);
+app.use("/cart", cartRoutes(db))
+//app.use("/dashboard", )
+
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
 app.get("/", (req, res) => {
-  res.render("index");
-});
+  const userID = req.session.userID;
+  getUserById(userID)
+  .then((user) => {
+    if (!user) {
+      res.status(401);
+      res.render("login", { error: "Unauthorized! Please login or register!" });
+      return;
+    }
+    // call get /item
+    getItems()
+    .then((items) => {
+      res.render("index", { user, items });
+      return;
+      });
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+  });
 
 // POST /logout
 app.post("/logout", (req, res) => {
