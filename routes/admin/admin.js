@@ -26,14 +26,27 @@ router.get('/admin_menu', (req, res)=> {
 });
 
 router.get('/admin_edit/', (req, res) => {
-  res.render("admin_edit");
+  const templateVars = {
+    id: null,
+    title: null,
+    description: null,
+    price: null,
+    photo_url: null,
+    inventory: null
+  };
+  res.render("admin_edit", templateVars);
 });
 
 router.get('/admin_edit/:id', (req, res) => {
   getMenu.getItemId(req.params.id)
     .then(item => {
       const templateVars = {
-        item: item
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        price: item.price,
+        photo_url: item.photo_url,
+        inventory: item.inventory
       };
       res.render("admin_edit", templateVars);
     });
@@ -88,7 +101,7 @@ router.post('/item/:${id/delete', (req, res) => {
  
 });
 
-router.post('/order/:id', (req, res) => {
+router.post('/order/', (req, res) => {
   const orderId = req.params.id;
   update(orderId)
     .then(()=> {
