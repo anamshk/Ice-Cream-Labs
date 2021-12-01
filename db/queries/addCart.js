@@ -18,7 +18,6 @@
    RETURNING id`, [userID, datetime, 'NULL', datetime, 'NULL'])
    .then((result) => {
      const orderID = result.rows[0].id
-     console.log("addCart promise: ", orderID);
      return db.query(`INSERT INTO order_line_items (item_id, order_master_id, quantity)
      VALUES ($1, $2, $3)
      RETURNING *`, [id, orderID, 1])
