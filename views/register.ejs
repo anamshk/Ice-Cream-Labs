@@ -8,15 +8,16 @@
   <link rel="stylesheet" href="/styles/variables.css" type="text/css" />
   <link rel="stylesheet" href="/styles/main.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-  
+
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
 <body>
   <nav>
-    <%- include('partials/_header') %>
-  </nav>  
+    <!-- <%- //include('partials/_header') %> -->
+    <!-- register and login shouldn't have the headers partial, lets add our header manually here -->
+  </nav>
   <h1>Register</h1>
   <%- include('partials/_error') %>
   <form method="POST" action="/register">
@@ -30,6 +31,7 @@
       <input name="phone_number" type="text">
       <button type="submit">Submit</button>
   </form>
+  <div>Already have an account? <a href="/login">Login Here</a></div>
 </body>
 
 </html>

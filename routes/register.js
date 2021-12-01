@@ -4,7 +4,8 @@ const router  = express.Router();
 //POST Register if the user is new
 const bcrypt = require('bcryptjs');
 const addUser = require("../db/queries/addUser");
-const { getUserByEmail } = require("../db/queries/getUsers");
+const db = require("../lib/db.js");
+const { getUserByEmail } = require("../db/queries/getUsers")(db);
 
 // GET redirect user to /register.ejs
 router.get("/", (req, res)=> {
