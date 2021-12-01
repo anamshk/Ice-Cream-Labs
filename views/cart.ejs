@@ -16,13 +16,13 @@
 <body class="cart">
 	<nav>
     <%- include('partials/_header') %>
-  </nav>  
+  </nav>
 	<h1>my cart</h1>
 	<% let totalSum = 0; %>
   <% for(let item of Object.values(items)) { %>
 	<div class="item">
 		<header>
-		<form method="POST" action="" class="quantity">
+		<form method="POST" action="/cart/<%= item.order_master_id %>/edit" class="quantity">
 	        <input name="quantity" value="<%= item.quantity %>">
 	    </form>
 		<form method="POST" action="" class="delete">
@@ -35,7 +35,7 @@
 		</footer>
 	</div>
 	<!-- price total -->
-	
+
 		<% totalSum += item.quantity * item.price; %>
 	</div>
   <% } %>

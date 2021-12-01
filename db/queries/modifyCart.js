@@ -6,7 +6,6 @@ module.exports = (db) => {
    WHERE order_master_id = $2
    RETURNING *`, [quantity, id])
    .then((result) => {
-      console.log("items updated!", result.rows)
       return result.rows;
    })
    .catch((err) => {
