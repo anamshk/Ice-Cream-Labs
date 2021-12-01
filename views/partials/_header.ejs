@@ -1,12 +1,14 @@
 <!-- TODO: added static header -->
+<div class="login-nav">
+  <% if(user) { %>
+    <label>Hello, <%= user.name %> </label>
+    <form method="POST" action="/logout">
+      <input id="logout" type="image" src="https://i.postimg.cc/0QznPTPp/logout-icon.png" alt="Submit" width="100"> 
+      <!-- <button type="submit">LOGOUT</button> -->
+    </form>
+  <% } else { %>
+    <a href="../login"><label>Login</label></a>
+    <a href="../register"><label>Register</label></a>
+  <% } %>
+</div>
 <p>IceCream Labs</p>
-
-<% if(user) { %>
-  <label>Hello, <%= user.name %></label>
-  <form method="POST" action="/logout">
-    <button type="submit">LOGOUT</button>
-  </form>
-<% } else { %>
-  <a href="../login"><label>Login</label></a>
-  <a href="../register"><label>Register</label></a>
-<% } %>

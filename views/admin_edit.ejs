@@ -14,8 +14,11 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <h1></h1>
+<body class="admin"> 
+  <nav>
+    <%- include('partials/_header-login') %>
+  </nav>  
+  <h1>admin edit</h1>
   <main>
     <form method="POST" action="/admin/admin_add">
       <div class="form-group">

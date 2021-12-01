@@ -13,8 +13,11 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <h1></h1>
+<body class="admin"> 
+  <nav>
+    <%- include('partials/_header-login') %>
+  </nav>  
+  <h1>admin menu</h1>
   <form class="form-inline" action="/admin/admin_edit" method="GET">
     <div class="form-group mb-2">
       <button type="submit" class="btn btn-primary">Add Item</button>
