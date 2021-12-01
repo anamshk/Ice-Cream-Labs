@@ -9,14 +9,13 @@
  * @return {Promise<{}>}
  */
 
-
-
  module.exports = (db) => {
   const addCart = (userID, id) => {
+    const datetime = new Date();
     return db
    .query(`INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status)
    VALUES ($1, $2, $3, $4, $5)
-   RETURNING id`, [userID, '2021-12-03 15:14:07', '15', '2021-12-03 15:14:07', 'pending'])
+   RETURNING id`, [userID, datetime, 'NULL', datetime, 'NULL'])
    .then((result) => {
      const orderID = result.rows[0].id
      console.log("addCart promise: ", orderID);
