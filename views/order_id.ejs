@@ -27,6 +27,9 @@
       <newline><td>Total: <%= order.total %></td></newline>
       <newline> Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></newline>
     </tr>
+    <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
+      <button type="submit" class="btn btn-primary">Accept order</button>
+    </form>
     <form class="form-inline" action="/admin/order/<%= order.id %>/reject" method="POST">
       <button type="submit" class="btn btn-primary">Reject order</button>
     </form>

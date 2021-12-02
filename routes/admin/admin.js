@@ -128,15 +128,22 @@ router.post('/order/:id/update', (req, res) => {
         return;
       });
       
-  } else {
+  }
+});
+
+router.post('order/:id/accept', (req, res) => {
+  const orderId = req.params.id;
+  const userID = req.session.userID;
+  if (orderId) {
     updateStatus(orderId, 'accepted')
       .then(()=> {
         res.redirect("/admin/orders_in_queue");
         orderAccepted(userID, orderId);
       });
-
   }
+  
 });
+  
 
 router.post('/order/:id/reject', (req, res) => {
   const orderId = req.params.id;
