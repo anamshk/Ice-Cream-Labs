@@ -12,7 +12,7 @@ module.exports = (db) => {
     JOIN order_master ON order_master.id = order_master_id
     JOIN items ON items.id = item_id
     WHERE  order_master .user_id = $1
-    -- AND status = 'pending'
+    AND status = 'pending'
     GROUP  BY item_id, order_master_id, quantity, title, description, photo_url, price `, [userID])
     .then((result) => {
       return result.rows;
