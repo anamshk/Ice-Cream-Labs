@@ -18,7 +18,7 @@ module.exports = (db) => {
             RETURNING id`, [userID, datetime, "NULL", datetime, "pending"]
           );
         }
-        console.log("order_master_id=", result.rows[0].id)
+        // console.log("order_master_id=", result.rows[0].id)
         return db
           .query(`SELECT id FROM order_master  WHERE user_id = $1`, [userID]);
       })
