@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-<title></title> 
-<nav>
-  <%- include('partials/_header') %>
-</nav>  
+  <head>
+    <title>Order Details - Order #<%=order.id%></title> 
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/main.css" type="text/css" />
-  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/main.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
-  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-  <script type="text/javascript" src="/scripts/app.js"></script>
-</head>
-<body class="admin">
-  <p id="small-link"><a href="../admin">back</a></p>
-    <h2>Order # <%=order.id%></h2>
-    <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET"></form>
-    <tr>
-      <td>Customer: <%= order.name %> |  Phone <%= order.phone_number %></td>
-      <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
-      <newline><td>Ordered: <%= order.title %></td></newline> 
-      <newline><td>Price: <%= order.price %></td></newline>
-      <newline><td>Total: <%= order.total %></td></newline>
-      <newline> Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></newline>
-    </tr>
-    <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
+    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
+  </head>
+  <body class="admin">
+    <nav>
+      <%- include('partials/_header-admin') %>
+    </nav>  
+
+    <p id="small-link">
+      <a href="../orders_in_queue">back</a>
+    </p>
+
+    <h1>Order #<%=order.id%></h1>
+
+    <div>
+    <h2>Customer:</em><%= order.name %></h2>
+    <h2>Phone <%= order.phone_number %></h2>
+    <h2>Ordered at: <%= order.order_datetime %></h2>
+    
+    <h2>Ordered: <%= order.title %></h2>
+    <h2>Price: <%= order.price %></h2>
+    <h2>Total: <%= order.total %></h2>
+
+    <h2>Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></h2>
+
+    </div>
+
+    <form class="form-inline " action="/admin/order/<%= order.id %>/update" method="POST">
       <button type="submit" class="btn btn-primary">Accept order</button>
     </form>
-    <form class="form-inline" action="/admin/order/<%= order.id %>/reject" method="POST">
-      <button type="submit" class="btn btn-primary">Reject order</button>
+
+    <form class="form-inline " action="/admin/order/<%= order.id %>/reject" method="POST">
+      <button type="submit" class="button-accent">Reject order</button>
     </form>
-</body>
+
+  </body>
 </html>

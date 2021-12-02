@@ -4,7 +4,7 @@
 <head>
   <title>Home Page</title>
   <nav>
-    <%- include('partials/_header') %>
+    <%- include('partials/_header-admin') %>
   </nav> 
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -16,26 +16,22 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 
-<body>
-  <p id="small-link"><a href="../admin">back</a></p>
+<body class="admin">
   <h1>Order list</h1>
+  <p id="small-link"><a href="../admin">back</a></p>
   <% for(let order of orders) { %>
     
     <div class="all-orders">
-      <header>
-        <tr>
-          <td>Customer: <%= order.name %> |  <%= order.phone_number %></td>
-          <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
-          <newline><td>Ordered: <%= order.title %></td></newline> 
-          <newline><td>Quantity: <%= order.price %></td></newline>
-          <newline><td>Total: <%= order.total %></td></newline>
-          <newline><tr>Status: <%= order.status%></td></newline>
-          <newline><tD>Completed: <%= order.completion_datetime %></td></newline>
-          
-        </tr>
-      </header>
-      <footer>
-      </footer>
+
+          <h3>Customer: <%= order.name %> |  <%= order.phone_number %></h3>
+          <p>
+            Ordered at: <%= order.order_datetime %><br>
+            Ordered: <%= order.title %> <br>
+            Quantity: <%= order.price %><br>
+            Total: <%= order.total %><br>
+            Status: <%= order.status%><br>
+            Completed: <%= order.completion_datetime %>
+          </p>
     </div>
   <% } %>
 </body>
