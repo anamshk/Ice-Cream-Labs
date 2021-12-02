@@ -12,24 +12,6 @@ const db = require("./lib/db.js");
 const { getUserById } = require("./db/queries/getUsers.js")(db);
 const { getItems } = require("./db/queries/getItems")(db);
 
-//twilio//////////////////////////////////////////////////
-const http = require('http');
-const MessagingResponse = require('twilio').twiml.MessagingResponse;
-
-app.post('/sms', (req, res) => {
-  const twiml = new MessagingResponse();
-
-  twiml.message('The Robots are coming! Head for the hills!');
-
-  res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
-});
-
-http.createServer(app).listen(1337, () => {
-  console.log('Express server listening on port 1337');
-});
-//////////////////////////////////////////////////////////
-
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -84,28 +66,28 @@ app.use("/cart", cartRoutes(db));
 app.get("/", (req, res) => {
   const userID = req.session.userID;
   getUserById(userID)
-  .then((user) => {
-    if (!user) {
-      res.status(401);
-      res.render("login", { error: "Unauthorized! Please login or register!" });
-      return;
-    }
-    // call get /item
-    getItems()
-    .then((items) => {
-      res.render("index", { user, items });
-      return;
-      });
+    .then((user) => {
+      if (!user) {
+        res.status(401);
+        res.render("login", { error: "Unauthorized! Please login or register!" });
+        return;
+      }
+      // call get /item
+      getItems()
+        .then((items) => {
+          res.render("index", { user, items });
+          return;
+        });
     })
     .catch((err) => {
       console.log(err.message);
     });
-  });
+});
 
 // TODO: move to dedicated route
 app.get("/order-status", (req, res) => {
   res.render("order-status");
-})
+});
 
 // POST /logout
 app.post("/logout", (req, res) => {

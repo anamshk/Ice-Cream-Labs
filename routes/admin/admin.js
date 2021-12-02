@@ -1,18 +1,18 @@
 const express = require('express');
-// const db = require('../../lib/db');
+const router  = express.Router();
+
+//TWILIO SMS
+const { orderAccepted, orderRejected, orderCompleted } = require("../lib/twilio");
+
+//ALL QUERIES
 const getMenu = require('../../db/queries/getMenu');
 const addMenuItem = require('../../db/queries/addMenuItem');
 const removeMenuItem = require('../../db/queries/removeMenuItem');
 const {orders, orderById, allOrders} = require('../../db/queries/getOrders');
-const { route } = require('../register');
 const updateMenuItem = require('../../db/queries/updateMenu');
 const updateStatus = require('../../db/queries/updateOrder');
-const router  = express.Router();
 
-const accountSid = 'AC125bc05f49eaf635e3cbd332512a809b';
-const authToken = '7c7cfc95820c8356d79c8aa8717080c5';
 
-const client = require('twilio')(accountSid, authToken);
 
 //GET THE ORDERS HOME PAGE FOR THE ADMIN
 
@@ -119,52 +119,35 @@ router.post('/item/:id/delete', (req, res) => {
 // TWILIO SMS WHEN ORDER COMPLETE
 router.post('/order/:id/update', (req, res) => {
   const orderId = req.params.id;
+  const userID = req.session.userID;
   if (orderId) {
     updateStatus(orderId, 'completed')
       .then(()=> {
         res.redirect("/admin/orders_in_queue");
+        orderCompleted(userID);
+        return;
       });
       
-    client.messages
-      .create({
-        body: 'Your order is ready for pickup.',
-        from: '+12264068998',
-        to: '+16476361869'
-      })
-      .then(message => console.log(message.sid));
   } else {
     updateStatus(orderId, 'accepted')
       .then(()=> {
         res.redirect("/admin/orders_in_queue");
+        orderAccepted(userID);
       });
-      
-    client.messages
-      .create({
-        body: 'Your order has been accepted.',
-        from: '+12264068998',
-        to: '+16476361869'
-      })
-      .then(message => console.log(message.sid));
 
   }
 });
 
 router.post('/order/:id/reject', (req, res) => {
   const orderId = req.params.id;
+  const userID = req.session.userID;
   if (orderId) {
     updateStatus(orderId, 'rejected')
       .then(()=> {
         res.redirect("/admin/all_orders");
+        orderRejected(userID);
       });
   }
-
-  client.messages
-    .create({
-      body: 'Your order has been rejected.',
-      from: '+12264068998',
-      to: '+16476361869'
-    })
-    .then(message => console.log(message.sid));
 });
 
 module.exports = router;
