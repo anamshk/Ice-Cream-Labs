@@ -3,7 +3,7 @@ module.exports = (db) => {
     return db
    .query(`UPDATE order_line_items
    SET quantity = $1
-   WHERE order_master_id = $2
+   WHERE item_id = $2
    RETURNING *`, [quantity, id])
    .then((result) => {
       return result.rows;
@@ -16,7 +16,7 @@ module.exports = (db) => {
   const deleteCartItem = (id) => {
     return db
    .query(`DELETE FROM order_line_items
-   WHERE order_master_id = $1
+   WHERE item_id = $1
    RETURNING *`, [id])
    .then((result) => {
       console.log("items deleted!", result.rows)

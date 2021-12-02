@@ -72,7 +72,8 @@ module.exports = (db) => {
       submitCart(userID)
         .then((result) => {
           console.log("/:user_id/submit", result)
-          res.send(result);
+          res.redirect("/order-status");
+          // send text notification to admin using helper function below
           orderSubmitted(userID)
           return;
         })
@@ -83,9 +84,9 @@ module.exports = (db) => {
   });
 
     // POST /cart/order_master_id/edit modifies cart item
-    router.post("/:order_master_id/edit", (req, res) => {
+    router.post("/:item_id/edit", (req, res) => {
       const userID = req.session.userID;
-      const order_master_id = req.params.order_master_id;
+      const item_id = req.params.item_id;
       const quantity = req.body.quantity;
       getUserById(userID).then((user) => {
         if (!user) {
@@ -96,7 +97,7 @@ module.exports = (db) => {
           return;
         }
 
-        editCartItem(quantity, order_master_id)
+        editCartItem(quantity, item_id)
           .then((result) => {
             res.redirect("/cart");
             return;
@@ -108,9 +109,9 @@ module.exports = (db) => {
     });
 
     // POST /cart/order_master_id/edit modifies cart item
-    router.post("/:order_master_id/delete", (req, res) => {
+    router.post("/:item_id/delete", (req, res) => {
       const userID = req.session.userID;
-      const order_master_id = req.params.order_master_id;
+      const item_id = req.params.item_id;
       getUserById(userID).then((user) => {
         if (!user) {
           res.status(401);
@@ -120,7 +121,7 @@ module.exports = (db) => {
           return;
         }
 
-        deleteCartItem(order_master_id)
+        deleteCartItem(item_id)
           .then((result) => {
             console.log("POST /cart/delete: deleted!!!")
             res.redirect("/cart");

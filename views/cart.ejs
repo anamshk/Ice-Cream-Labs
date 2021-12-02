@@ -22,10 +22,10 @@
   <% for(let item of Object.values(items)) { %>
 	<div class="item">
 		<header>
-		<form method="POST" action="/cart/<%= item.order_master_id %>/edit" class="quantity">
+		<form method="POST" action="/cart/<%= item.item_id %>/edit" class="quantity">
 	        <input name="quantity" value="<%= item.quantity %>">
 	    </form>
-		<form method="POST" action="/cart/<%= item.order_master_id %>/delete" class="delete">
+		<form method="POST" action="/cart/<%= item.item_id %>/delete" class="delete">
 	      <button type="submit" class="btn btn-primary">delete</button>
 	  </form>
 		</header>

@@ -8,7 +8,7 @@
   const submitCart = (userID) => {
     return db
    .query(`UPDATE order_master
-   SET status = 'submitted'
+   SET status = 'pending'
    WHERE user_id = $1
    RETURNING id;`, [userID])
     .then((result) => {
