@@ -11,6 +11,7 @@ const cookieSession = require("cookie-session");
 const db = require("./lib/db.js");
 const { getUserById } = require("./db/queries/getUsers.js")(db);
 const { getItems } = require("./db/queries/getItems")(db);
+const { getCart } = require("./db/queries/getCart")(db);
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -42,6 +43,8 @@ const registerRoutes = require("./routes/register");
 const admin = require("./routes/admin/admin");
 const loginRoutes = require("./routes/login");
 const cartRoutes = require("./routes/cart");
+const cart = require("./routes/cart");
+
 
 // Mount all resource routes
 
@@ -66,11 +69,22 @@ app.get("/", (req, res) => {
         return;
       }
       // call get /item
-      getItems()
-        .then((items) => {
-          res.render("index", { user, items });
-          return;
-        });
+      getCart(userID).then((cart) => {
+          return cart;
+        })
+        .then((cart) => {
+          getItems()
+          .then((items) => {
+            let cartCount = 0;
+            for (const items of cart) {
+              cartCount += Number(items.quantity);
+            }
+            console.log("cart", cartCount);
+            res.render("index", { user, items, cartCount });
+            return;
+          });
+        })
+
     })
     .catch((err) => {
       console.log(err.message);

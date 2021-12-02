@@ -10,16 +10,15 @@ module.exports = (db) => {
     return db
       .query(`SELECT id FROM order_master  WHERE user_id = $1`, [userID])
       .then((result) => {
-        console.log("addCart: does order_master exist?, length should be 0", result.rows);
         if (result.rows.length === 0) {
-          console.log("EMPTY ARRAY! result");
+          console.log("addCart: does order_master exist?, length should be 0", result.rows.length);
           return db.query(
             `INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status)
             VALUES ($1, $2, $3, $4, $5)
             RETURNING id`, [userID, datetime, "NULL", datetime, "pending"]
           );
         } else {
-          // console.log("order_master_id=", result.rows[0].id)
+          console.log("order_master_id=", result.rows[0].id)
           return db.query(
             `INSERT INTO order_line_items (item_id, order_master_id, quantity)
             VALUES ($1, $2, $3)
