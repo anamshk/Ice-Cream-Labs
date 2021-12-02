@@ -77,6 +77,11 @@ app.get("/", (req, res) => {
     });
   });
 
+// TODO: move to dedicated route
+app.get("/order-status", (req, res) => {
+  res.render("order-status");
+})
+
 // POST /logout
 app.post("/logout", (req, res) => {
   req.session = null;

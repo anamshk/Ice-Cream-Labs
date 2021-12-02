@@ -7,6 +7,8 @@ module.exports = (db) => {
   const { addCart } = require("../db/queries/addCart")(db);
   const { getCart } = require("../db/queries/getCart")(db);
   const { submitCart } = require("../db/queries/submitCart")(db);
+  const { editCartItem, deleteCartItem } = require("../db/queries/modifyCart")(db);
+  const { orderSubmitted } = require("../lib/twilio");
 
   // GET /cart,displays cart items to logged in user with option to submit below (POST /cart)
   router.get("/", (req, res) => {
@@ -55,9 +57,8 @@ module.exports = (db) => {
     });
   });
 
-  // POST /cart/submit submits cart and upates status field to submitted and sends a notifaction to admin via Twillio
+  // POST /cart/user_id/submit submits cart and upates status field to submitted and sends a notifaction to admin via Twillio
   router.post("/:user_id/submit", (req, res) => {
-    console.log("1")
     const userID = req.session.userID;
     getUserById(userID).then((user) => {
       if (!user) {
@@ -70,7 +71,9 @@ module.exports = (db) => {
 
       submitCart(userID)
         .then((result) => {
-          res.send(result);
+          res.redirect("/order-status");
+          // send text notification to admin using helper function below
+          orderSubmitted(userID);
           return;
         })
         .catch((err) => {
@@ -78,5 +81,55 @@ module.exports = (db) => {
         });
     });
   });
+
+    // POST /cart/order_master_id/edit modifies cart item
+    router.post("/:item_id/edit", (req, res) => {
+      const userID = req.session.userID;
+      const item_id = req.params.item_id;
+      const quantity = req.body.quantity;
+      getUserById(userID).then((user) => {
+        if (!user) {
+          res.status(401);
+          res.render("login", {
+            error: "Unauthorized! Please login or register!",
+          });
+          return;
+        }
+
+        editCartItem(quantity, item_id)
+          .then((result) => {
+            res.redirect("/cart");
+            return;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      });
+    });
+
+    // POST /cart/order_master_id/edit modifies cart item
+    router.post("/:item_id/delete", (req, res) => {
+      const userID = req.session.userID;
+      const item_id = req.params.item_id;
+      getUserById(userID).then((user) => {
+        if (!user) {
+          res.status(401);
+          res.render("login", {
+            error: "Unauthorized! Please login or register!",
+          });
+          return;
+        }
+
+        deleteCartItem(item_id)
+          .then((result) => {
+            console.log("POST /cart/delete: deleted!!!")
+            res.redirect("/cart");
+            return;
+          })
+          .catch((err) => {
+            console.log(err.message);
+          });
+      });
+    });
   return router;
 };

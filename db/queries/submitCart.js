@@ -8,10 +8,11 @@
   const submitCart = (userID) => {
     return db
    .query(`UPDATE order_master
-   SET status = 'submitted'
-   WHERE user_id = $1;`, [userID])
+   SET status = 'pending'
+   WHERE user_id = $1
+   RETURNING id;`, [userID])
     .then((result) => {
-      console.log("cart submitted!");
+      console.log("cart submitted!", result.rows);
       return "success! cart submitted";
     })
     .catch((err) => {
