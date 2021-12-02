@@ -145,7 +145,7 @@ router.post('/order/:id/reject', (req, res) => {
     updateStatus(orderId, 'rejected')
       .then(()=> {
         res.redirect("/admin/all_orders");
-        orderRejected(userID, orderId);../
+        orderRejected(userID, orderId);
       });
   }
 });
