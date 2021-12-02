@@ -21,9 +21,9 @@ module.exports = (db) => {
         } else {
           // console.log("order_master_id=", result.rows[0].id)
           return db.query(
-            `INSERT INTO order_line_items (item_id, order_master_id, user_id, quantity)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *`, [item_id, result.rows[0].id, userID, 1]
+            `INSERT INTO order_line_items (item_id, order_master_id, quantity)
+            VALUES ($1, $2, $3)
+            RETURNING *`, [item_id, result.rows[0].id, 1]
           );
         }
       })
@@ -32,9 +32,9 @@ module.exports = (db) => {
         const orderID = result.rows[0].order_master_id;
         return db
           .query(
-            `INSERT INTO order_line_items (item_id, order_master_id, user_id, quantity)
-            VALUES ($1, $2, $3, $4)
-            RETURNING *`, [item_id, orderID, userID, 1]
+            `INSERT INTO order_line_items (item_id, order_master_id, quantity)
+            VALUES ($1, $2, $3)
+            RETURNING *`, [item_id, orderID, 1]
           )
           .then((result) => {
             console.log("items added!", result.rows);
