@@ -1,0 +1,1 @@
+INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (1, '2021-12-03 17:30:17', 'Order will complete in 15 minutes', NULL, 'rejected');

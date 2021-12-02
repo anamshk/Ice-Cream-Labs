@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Admin: Menu </title>
+  <title></title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -31,23 +31,12 @@
         <img src="<%= item.photo_url %>">
       </header>
       <footer>
-        <form method="GET" action="/admin/admin_edit/<%= //item.id %>"><button type="submit" class="btn btn-outline-primary edit mid-btn">Edit</button></form>
-        
-        <!-- <button class="edit"></button> -->
+        <form method="GET" action="/admin/admin_edit/<%= item.id %>"><button type="submit" class="btn btn-outline-primary edit mid-btn">Edit</button></form>
       </footer>
     </div>
-
-
-    <!-- <tr>
-      <td><%= //item.description %></td>
-      <newline><td>photo url: <%= //item.photo_url %></td></newline>
-      <newline><td>price: <%= //item.price %></td></newline> 
-      <newline><td>inventory: <%= //item.inventory %></td></newline>
-      <td><form method="GET" action="/admin/admin_edit/<%= //item.id %>"></td>
-        <button type="submit" class="btn btn-outline-primary">Edit</button>
-    </tr> -->
   <% } %> 
   <form class="form-inline" action="/admin/admin_edit/" method="GET">
+    <button type="submit" class="btn btn-outline-primary">Add item</button>
 
  
 </html>

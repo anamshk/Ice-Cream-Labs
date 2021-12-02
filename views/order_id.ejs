@@ -1,8 +1,11 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-<title></title>  
+<title></title> 
+<nav>
+  <%- include('partials/_header') %>
+</nav>  
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -12,18 +15,20 @@
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
-
-<body>
-  <h1></h1>
-  <form class="form-inline" action="/admin/order/:id" method="GET">
-    <div class="form-group mb-2">
-      <button type="submit" class="btn btn-primary">View All Order</button>
-    </div>
-  </form>
-  <form class="form-inline" action="/admin/orders_in_queue" method="GET">
-    <div class="form-group mb-2">
-      <button type="submit" class="btn btn-primary">Completed</button>
-    </div>
-  </form>
+<body class="admin">
+  <p id="small-link"><a href="../admin">back</a></p>
+    <h2>Order # <%=order.id%></h2>
+    <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET"></form>
+    <tr>
+      <td>Customer: <%= order.name %> |  Phone <%= order.phone_number %></td>
+      <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
+      <newline><td>Ordered: <%= order.title %></td></newline> 
+      <newline><td>Price: <%= order.price %></td></newline>
+      <newline><td>Total: <%= order.total %></td></newline>
+      <newline> Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></newline>
+    </tr>
+    <form class="form-inline" action="/admin/order/<%= order.id %>/reject" method="POST">
+      <button type="submit" class="btn btn-primary">Reject order</button>
+    </form>
 </body>
-</html> -->
+</html>
