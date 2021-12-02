@@ -15,8 +15,7 @@
 
 <body>
   <nav>
-    <!-- <%- //include('partials/_header') %> -->
-    <!-- register and login shouldn't have the headers partial, lets add our header manually here -->
+    <p>IceCream Labs</p>
   </nav>
   <h1>Register</h1>
   <%- include('partials/_error') %>
@@ -31,7 +30,7 @@
       <input name="phone_number" type="text">
       <button type="submit">Submit</button>
   </form>
-  <div>Already have an account? <a href="/login">Login Here</a></div>
+  <div class="link-small">Already have an account? <a href="/login" class="link-small">Login Here</a></div>
 </body>
 
 </html>
