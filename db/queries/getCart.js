@@ -25,11 +25,3 @@ module.exports = (db) => {
 };
 
 
-
-// SELECT title, price, SUM(quantity) as quantity FROM order_line_items
-//     JOIN order_master ON order_master.id = order_master_id
-//      JOIN items ON items.id = item_id
-//     WHERE order_master .user_id = 27 AND status = 'pending'
-// GROUP BY title, price, order_datetime
-//     ORDER BY order_datetime;
-
