@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 //TWILIO SMS
-const { orderAccepted, orderRejected, orderCompleted } = require("../lib/twilio");
+const { orderAccepted, orderRejected, orderCompleted } = require("../../lib/twilio");
 
 //ALL QUERIES
 const getMenu = require('../../db/queries/getMenu');
@@ -124,7 +124,7 @@ router.post('/order/:id/update', (req, res) => {
     updateStatus(orderId, 'completed')
       .then(()=> {
         res.redirect("/admin/orders_in_queue");
-        orderCompleted(userID);
+        orderCompleted(userID, orderId);
         return;
       });
       
@@ -132,7 +132,7 @@ router.post('/order/:id/update', (req, res) => {
     updateStatus(orderId, 'accepted')
       .then(()=> {
         res.redirect("/admin/orders_in_queue");
-        orderAccepted(userID);
+        orderAccepted(userID, orderId);
       });
 
   }
@@ -145,7 +145,7 @@ router.post('/order/:id/reject', (req, res) => {
     updateStatus(orderId, 'rejected')
       .then(()=> {
         res.redirect("/admin/all_orders");
-        orderRejected(userID);
+        orderRejected(userID, orderId);../
       });
   }
 });
