@@ -8,6 +8,7 @@ module.exports = (db) => {
   const { getCart } = require("../db/queries/getCart")(db);
   const { submitCart } = require("../db/queries/submitCart")(db);
   const { editCartItem, deleteCartItem } = require("../db/queries/modifyCart")(db);
+  const { orderSubmitted } = require("../lib/twilio");
 
   // GET /cart,displays cart items to logged in user with option to submit below (POST /cart)
   router.get("/", (req, res) => {
@@ -70,7 +71,9 @@ module.exports = (db) => {
 
       submitCart(userID)
         .then((result) => {
+          console.log("/:user_id/submit", result)
           res.send(result);
+          orderSubmitted(userID)
           return;
         })
         .catch((err) => {

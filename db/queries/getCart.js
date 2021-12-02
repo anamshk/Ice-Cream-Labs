@@ -7,11 +7,12 @@
 module.exports = (db) => {
   const getCart = (userID) => {
     return db
-   .query(`SELECT * FROM order_line_items
+   .query(`SELECT item_id, order_master_id, quantity, title, description, photo_url, price, SUM(quantity) AS quantity
+    FROM   order_line_items
     JOIN order_master ON order_master.id = order_master_id
     JOIN items ON items.id = item_id
-    WHERE user_id = $1 AND status <> 'completed'
-    ORDER BY order_datetime;`, [userID])
+    WHERE  order_master .user_id = $1 AND status = 'pending'
+    GROUP  BY item_id, order_master_id, quantity, title, description, photo_url, price `, [userID])
     .then((result) => {
       return result.rows;
     })
@@ -22,3 +23,13 @@ module.exports = (db) => {
 
   return { getCart };
 };
+
+
+
+// SELECT title, price, SUM(quantity) as quantity FROM order_line_items
+//     JOIN order_master ON order_master.id = order_master_id
+//      JOIN items ON items.id = item_id
+//     WHERE order_master .user_id = 27 AND status = 'pending'
+// GROUP BY title, price, order_datetime
+//     ORDER BY order_datetime;
+
