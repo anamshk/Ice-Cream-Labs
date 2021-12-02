@@ -13,7 +13,7 @@ body {
   background-color: $user-bg;
 
   h1 {
-    margin-top: 80px;
+    // margin-top: 80px;
     color: $light-color;
     font-family: 'Pacifico',
       sans-serif;
@@ -26,6 +26,17 @@ body {
       margin-top: 170px;
     }
   }
+}
+
+// SPACE to avoid NAV BAR
+body::before {
+  height: 80px;
+  display: block;
+  content: '';
+}
+
+body.branded::before {
+  height: 160px;
 }
 
 body.admin {
@@ -77,7 +88,7 @@ body.admin {
 }
 
 .error {
-  margin-top: 40px;
+  // margin-top: 40px;
   color: $accent-color;
 }
 
@@ -368,3 +379,8 @@ footer > img {
   padding-bottom: 10px;
 }
 
+#waiting-gif{
+  margin-top: 25px;
+  width: 70px;
+  height: 70px;
+}
