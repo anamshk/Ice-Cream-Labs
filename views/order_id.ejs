@@ -16,8 +16,9 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
 </head>
 <body class="admin">
-  <% for(let order of OrderById) { %>
+  <p id="small-link"><a href="../admin">back</a></p>
     <h2>Order # <%=order.id%></h2>
+    <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET"></form>
     <tr>
       <td>Customer: <%= order.name %> |  Phone <%= order.phone_number %></td>
       <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
@@ -26,6 +27,8 @@
       <newline><td>Total: <%= order.total %></td></newline>
       <newline> Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></newline>
     </tr>
-   <% } %>
+    <form class="form-inline" action="/admin/order/<%= order.id %>/reject" method="POST">
+      <button type="submit" class="btn btn-primary">Reject order</button>
+    </form>
 </body>
 </html>

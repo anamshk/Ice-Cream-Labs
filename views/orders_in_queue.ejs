@@ -18,6 +18,7 @@
 
 <body class="admin"> 
   <h1>Orders in queue</h1>
+  <p id="small-link"><a href="../admin">back</a></p>
   <% for(let order of orders) { %>
     <h2>Order # <%=order.id%></h2>
     <tr>
@@ -27,14 +28,10 @@
       <newline><td>Quantity: <%= order.quantity %></td></newline>
       <!-- <newline><td>status: <%= order.status %></td></newline> -->
       <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET">
-        <div class="form-group mb-2">
-          <button type="submit" class="btn btn-primary">View Order</button>
-        </div>
+        <button type="submit" class="btn btn-primary">View Order</button>
       </form>
       <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
-        <div class="form-group mb-2">
-          <button type="submit" class="btn btn-primary">Completed</button>
-        </div>
+        <button type="submit" class="btn btn-primary">Completed</button>
       </form>
     </tr>
   <% } %>

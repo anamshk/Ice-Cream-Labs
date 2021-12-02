@@ -22,12 +22,27 @@ const orderById = (id) => {
   return db
     .query(`SELECT order_master.id as id, users.name, users.phone_number, order_datetime, items.title, order_line_items.quantity, items.price, estimated_time, status, sum(items.price) as total
     FROM order_master 
-    INNER JOIN order_line_items ON order_master.id = order_line_items.order_master_id
-    INNER JOIN users ON order_master.user_id = users.id
-    INNER JOIN items ON order_line_items.item_id = items.id
+    LEFT JOIN order_line_items ON order_master.id = order_line_items.order_master_id
+    LEFT JOIN users ON order_master.user_id = users.id
+    LEFT JOIN items ON order_line_items.item_id = items.id
     WHERE order_master.id =$1
     GROUP BY order_master.id, users.name, users.phone_number, order_master.order_datetime, items.title, order_line_items.quantity, items.price, order_master.estimated_time, order_master.status;`
     , [id])
+    .then((result) => result.rows[0])
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
+const allOrders = (id) => {
+  return db
+    .query(`SELECT *
+    FROM order_master 
+    LEFT JOIN order_line_items ON order_master.id = order_line_items.order_master_id
+    LEFT JOIN users ON order_master.user_id = users.id
+    LEFT JOIN items ON order_line_items.item_id = items.id
+    ${id ? `WHERE order_master.id =$1` : ''}`
+    , id ? [id] : undefined)
     .then((result) => result.rows)
     .catch((err) => {
       console.log(err.message);
@@ -35,5 +50,4 @@ const orderById = (id) => {
 };
 
 
-
-module.exports = {orders, orderById};
+module.exports = {orders, orderById, allOrders};
