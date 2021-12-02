@@ -10,7 +10,7 @@ module.exports = (db) => {
     return db
       .query(`SELECT id FROM order_master  WHERE user_id = $1`, [userID])
       .then((result) => {
-        console.log("addCart: does order_master exist?, length should be 0", result.rows.length);
+        // console.log("addCart: does order_master exist?, length should be 0", result.rows.length);
         if (result.rows.length === 0) {
           return db.query(
             `INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status)
@@ -23,7 +23,7 @@ module.exports = (db) => {
           .query(`SELECT id FROM order_master  WHERE user_id = $1`, [userID]);
       })
       .then((result) => {
-        console.log("new order being created after order_master created", result.rows);
+        // console.log("new order being created after order_master created", result.rows);
         const orderID = result.rows[0].id;
         return db
           .query(
@@ -33,7 +33,7 @@ module.exports = (db) => {
           )
       })
       .then((result) => {
-        console.log("items added!", result.rows);
+        // console.log("items added!", result.rows);
         return result.rows;
       })
       // .then((result) => {
