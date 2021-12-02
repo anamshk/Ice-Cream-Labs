@@ -3,6 +3,9 @@
 
 <head>
   <title>Home Page</title>
+  <nav>
+    <%- include('partials/_header') %>
+  </nav> 
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -15,6 +18,8 @@
 
 <body>
   <h1>Order list</h1>
+  <form method="GET" action="/admin/order/all_orders>">
+    <input name="id" class="form-control" id="all_orders" value=<%= id %>
 </body>
 
 </html>

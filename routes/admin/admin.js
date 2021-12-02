@@ -1,11 +1,13 @@
 const express = require('express');
-const db = require('../../lib/db');
+// const db = require('../../lib/db');
 const getMenu = require('../../db/queries/getMenu');
 const addMenuItem = require('../../db/queries/addMenuItem');
 const removeMenuItem = require('../../db/queries/removeMenuItem');
 const {orders, orderById} = require('../../db/queries/getOrders');
 const { route } = require('../register');
 const update = require('../../db/queries/updateOrder');
+const updateMenuItem = require('../../db/queries/updateMenu');
+const updateStatus = require('../../db/queries/updateOrder');
 const router  = express.Router();
 
 
@@ -78,13 +80,27 @@ router.get('/order/:id', (req, res) => {
     });
 });
 
+router.get('/order/all_orders', (req, res) => {
+  return orderById(req.body)
+    .then(order => {
+      const templateVars = {
+        OrderById: order
+      };
+      res.render("list_orders", templateVars);
+    });
+});
+
 //POSTS
-router.post('/admin_add', (req, res) => {
+router.post('/item/:id', (req, res) => {
   const item = req.body;
-  if (item.id) {
-    // TODO: update menu item
+  console.log(item);
+  if (item) {
+    updateMenuItem(item)
+      .then(()=> res.redirect("/admin/admin_menu"));
+  } else {
+    addMenuItem(item)
+      .then(()=> res.redirect("/admin/admin_menu"));
   }
-  addMenuItem(item);
 });
 
 // router.post('/item/:id', (req, res) => {
@@ -92,25 +108,25 @@ router.post('/admin_add', (req, res) => {
 //   removeMenuItem(item);
 // });
 
-router.post('/item/:${id/delete', (req, res) => {
+router.post('/item/:id/delete', (req, res) => {
   const itemId = req.params.id;
-  removeMenuItem(itemId)
-    .then(() => {
-      res.redirect("/admin/admin_menu");
-    });
- 
+  if (itemId) {
+    removeMenuItem(itemId)
+      .then(() => {
+        res.redirect("/admin/admin_menu");
+      });
+  }
 });
 
-router.post('/order/', (req, res) => {
+router.post('/order/:id/update', (req, res) => {
   const orderId = req.params.id;
-  update(orderId)
-    .then(()=> {
-      res.redirect("/admin/orders_in_queue");
-    });
-  // if (order.id) {
-
-  // };
-  // queries.orderId(itemId);
+  console.log("ORDER ID: ", orderId);
+  if (orderId) {
+    updateStatus(orderId, 'completed')
+      .then(()=> {
+        res.redirect("/admin/orders_in_queue");
+      });
+  }
 });
 
 module.exports = router;

@@ -32,7 +32,8 @@
       </header>
       <footer>
         <form method="GET" action="/admin/admin_edit/<%= item.id %>"><button type="submit" class="btn btn-outline-primary edit mid-btn">Edit</button></form>
-        
+        <form class="form-inline" action="/admin/admin_edit/" method="GET">
+          <button type="submit" class="btn btn-outline-primary">Add item</button>
         <!-- <button class="edit"></button> -->
       </footer>
     </div>
@@ -47,8 +48,6 @@
         <button type="submit" class="btn btn-outline-primary">Edit</button>
     </tr> -->
   <% } %> 
-  <form class="form-inline" action="/admin/admin_edit/" method="GET">
-    <button type="submit" class="btn btn-outline-primary">Add item</button>
 
  
 </html>

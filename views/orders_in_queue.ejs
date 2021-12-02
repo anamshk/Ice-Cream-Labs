@@ -3,6 +3,9 @@
 
 <head>
   <title>Orders in queue</title>
+  <nav>
+    <%- include('partials/_header') %>
+  </nav> 
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -14,9 +17,6 @@
 </head>
 
 <body class="admin"> 
-  <nav>
-    <%- include('partials/_header') %>
-  </nav>  
   <h1>Orders in queue</h1>
   <% for(let order of orders) { %>
     <h2>Order # <%=order.id%></h2>
@@ -31,7 +31,7 @@
           <button type="submit" class="btn btn-primary">View Order</button>
         </div>
       </form>
-      <form class="form-inline" action="/admin/orders_in_queue>" method="GET">
+      <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
         <div class="form-group mb-2">
           <button type="submit" class="btn btn-primary">Completed</button>
         </div>

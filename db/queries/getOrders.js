@@ -9,7 +9,9 @@ const orders = () => {
     FROM order_master 
     INNER JOIN order_line_items ON order_master.id = order_line_items.order_master_id
     INNER JOIN users ON order_master.user_id = users.id
-    INNER JOIN items ON order_line_items.item_id = items.id`)
+    INNER JOIN items ON order_line_items.item_id = items.id
+    WHERE status = 'submitted'
+    ORDER BY order_datetime DESC`)
     .then((result) => result.rows)
     .catch((err) => {
       console.log(err.message);
