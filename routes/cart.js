@@ -74,7 +74,7 @@ module.exports = (db) => {
           console.log("/:user_id/submit", result)
           res.redirect("/order-status");
           // send text notification to admin using helper function below
-          orderSubmitted(userID)
+          // orderSubmitted(userID);
           return;
         })
         .catch((err) => {
