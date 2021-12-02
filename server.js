@@ -36,13 +36,6 @@ app.use(cookieSession({
   keys: ["key"],
 }));
 
-
-
-const ngrok = require('ngrok');
-(async function() {
-  const url = await ngrok.connect();
-})();
-
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const registerRoutes = require("./routes/register");
