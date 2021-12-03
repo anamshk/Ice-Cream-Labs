@@ -22,8 +22,8 @@ VALUES ('admin', '606-151-0345','admin@email.com', '$2a$10$8nD82z.sMY./VZD0OUNtK
 
 INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (1, '2021-12-03 09:59:11', 'Order will complete in 15 minutes', '2021-12-03 10:11:21', 'completed');
 INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (1, '2021-12-03 13:30:17', 'Order will complete in 15 minutes', NULL, 'rejected');
-INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (3, '2021-12-03 15:14:07', 'Order will complete in 15 minutes', '2021-12-03 15:29:11', 'submitted');
-INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (3, '2021-12-03 20:56:56', 'Order will complete in 15 minutes', '2021-12-03 21:09:18', 'completed');
+INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (3, '2021-12-03 15:14:07', 'Order will complete in 15 minutes', '', 'submitted');
+INSERT INTO order_master (user_id, order_datetime, estimated_time, completion_datetime, status) VALUES (3, '2021-12-03 20:56:56', 'Order will complete in 15 minutes', '', 'accepted');
 
 
 INSERT INTO items (title, description, photo_url, price, inventory) 

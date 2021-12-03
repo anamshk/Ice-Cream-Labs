@@ -5,7 +5,8 @@ const db = require("../../lib/db");
 
 const getItems = () => {
   return db
-    .query(`SELECT * FROM items`)
+    .query(`SELECT * FROM items
+    ORDER BY id ASC`)
     .then((result) => result.rows)
     .catch((err) => {
       console.log(err.message);

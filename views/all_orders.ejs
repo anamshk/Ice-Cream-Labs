@@ -19,18 +19,25 @@
 <body class="admin">
   <h1>Order list</h1>
   <p id="small-link"><a href="../admin">back</a></p>
-  <% for(let order of orders) { %>
+  <% for(let order in orders) { %>
     
     <div class="all-orders">
 
-          <h3>Customer: <%= order.name %> |  <%= order.phone_number %></h3>
+          <h3>Customer: <%= orders[order].details.name %> |  <%= orders[order].details.phone_number %></h3>
           <p>
-            Ordered at: <%= order.order_datetime %><br>
-            Ordered: <%= order.title %> <br>
-            Quantity: <%= order.price %><br>
-            Total: <%= order.total %><br>
-            Status: <%= order.status%><br>
-            Completed: <%= order.completion_datetime %>
+            Ordered at: <%= orders[order].details.order_datetime %><br>
+            <% for(let item of orders[order].items) { %>
+              Ordered: <%= item.title %>  | Qty: <%= item.price %><br>
+            <% } %>
+
+            <% if (orders[order].details.status !== "rejected") { %>
+              Total: <%= orders[order].details.total %><br>
+              <% } %>
+              
+            Status: <%= orders[order].details.status%><br>
+            <% if (orders[order].details.status === 'completed') { %>
+              Completed: <%= orders[order].details.completion_datetime %>
+            <% } %>
           </p>
     </div>
   <% } %>

@@ -22,21 +22,20 @@
     </p>
 
     <h1>Order #<%=order.id%></h1>
+      <div>
+      <h2>Customer:</em><%= order.name %></h2>
+      <h2>Phone <%= order.phone_number %></h2>
+      <h2>Ordered at: <%= order.order_datetime %></h2>
+      <% for(let item of items) { %>
+        <h2>Ordered: <%= item.title %></h2>
+        <h2>Price: <%= item.price %></h2>
+      <% } %>
+      <h2>Total: <%= order.total %></h2>
 
-    <div>
-    <h2>Customer:</em><%= order.name %></h2>
-    <h2>Phone <%= order.phone_number %></h2>
-    <h2>Ordered at: <%= order.order_datetime %></h2>
-    
-    <h2>Ordered: <%= order.title %></h2>
-    <h2>Price: <%= order.price %></h2>
-    <h2>Total: <%= order.total %></h2>
+      <h2>Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></h2>
 
-    <h2>Estimated time: <input name='estimated_time' placeholder="<%= order.estimated_time %>"></h2>
-
-    </div>
-
-    <form class="form-inline " action="/admin/order/<%= order.id %>/update" method="POST">
+      </div>
+    <form class="form-inline " action="/admin/order/<%= order.id %>/accept" method="POST">
       <button type="submit" class="btn btn-primary">Accept order</button>
     </form>
 

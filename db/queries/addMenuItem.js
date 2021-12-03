@@ -6,7 +6,7 @@ const db = require("../../lib/db");
 const addMenuItem = (item) => {
   return db
     .query(`INSERT INTO items (title, description, photo_url, price, inventory)
-    VALUES($1, $2, $3, $4, $5) 
+    VALUES($1, $2, $3, $4, $5)
     RETURNING *;`, [item.title, item.description, item.photo_url, item.price, item.inventory])
     .then((result) => result.rows[0])
     .catch((err) => {

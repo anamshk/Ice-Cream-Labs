@@ -19,18 +19,20 @@
 <body class="admin"> 
   <h1>Orders in queue</h1>
   <p id="small-link"><a href="../admin">back</a></p>
-  <% for(let order of orders) { %>
-    <h2>Order # <%=order.id%></h2>
+  <% for(let order in orders) { %>
+    <h2>Order # <%=orders[order].details.id %></h2>
     <tr>
-      <td>Customer: <%= order.name %> |  <%= order.phone_number %></td>
-      <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
-      <newline><td>Ordered: <%= order.title %></td></newline> 
-      <newline><td>Quantity: <%= order.quantity %></td></newline>
-      <!-- <newline><td>status: <%= order.status %></td></newline> -->
-      <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET">
+      <h3>Customer: <%= orders[order].details.name %> |  <%= orders[order].details.phone_number %></h3>
+      <p>
+        Ordered at: <%= orders[order].details.order_datetime %></td></newline>
+        <% for(let item of orders[order].items) { %>
+          Ordered: <%= item.title %>  | Qty: <%= item.quantity%> | Price: <%= item.price %><br>
+          <% } %>
+      </p>
+      <form class="form-inline" action="/admin/order/<%= orders[order].details.id %>" method="GET">
         <button type="submit" class="btn btn-primary">View Order</button>
       </form>
-      <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
+      <form class="form-inline" action="/admin/order/<%= orders[order].details.id %>/update" method="POST">
         <button type="submit" class="btn btn-primary">Completed</button>
       </form>
     </tr>

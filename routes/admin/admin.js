@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const express = require('express');
 const router  = express.Router();
 
@@ -8,7 +9,7 @@ const { orderAccepted, orderRejected, orderCompleted } = require("../../lib/twil
 const getMenu = require('../../db/queries/getMenu');
 const addMenuItem = require('../../db/queries/addMenuItem');
 const removeMenuItem = require('../../db/queries/removeMenuItem');
-const {orders, orderById, allOrders} = require('../../db/queries/getOrders');
+const getOrders = require('../../db/queries/getOrders');
 const updateMenuItem = require('../../db/queries/updateMenu');
 const updateStatus = require('../../db/queries/updateOrder');
 
@@ -37,7 +38,8 @@ router.get('/admin_edit/', (req, res) => {
     description: null,
     price: null,
     photo_url: null,
-    inventory: null
+    inventory: null,
+    url: '/admin/item'
   };
   res.render("admin_edit", templateVars);
 });
@@ -51,7 +53,8 @@ router.get('/admin_edit/:id', (req, res) => {
         description: item.description,
         price: item.price,
         photo_url: item.photo_url,
-        inventory: item.inventory
+        inventory: item.inventory,
+        url: '/admin/item/:id'
       };
       res.render("admin_edit", templateVars);
     });
@@ -59,11 +62,52 @@ router.get('/admin_edit/:id', (req, res) => {
 });
 
 router.get('/orders_in_queue', (req, res) => {
-  return orders()
-    .then(order => {
-      console.log(order);
+  return getOrders.orders()
+    .then(orderMasters => {
+      console.log(orderMasters);
+      let orders = {};
+      for (let o of orderMasters) {
+        if (!o.id) {
+          continue;
+        }
+        if (orders[o.id]) {
+          let itemDetails = {
+            title: o.title,
+            price: o.price,
+            quantity: o.quantity
+          };
+          orders[o.id].details.total += o.price * o.quantity;
+          orders[o.id].items.push(itemDetails);
+        } else {
+          let orderDetails = {
+            id: o.id,
+            user_id: o.user_id,
+            order_datetime: o.order_datetime,
+            estimated_time: o.estimated_time,
+            completion_datetime: o.completion_datetime,
+            status: o.status,
+            name: o.name,
+            phone_number: o.phone_number,
+            total: o.price * o.quantity
+          };
+          let itemDetails = {
+            title: o.title,
+            price: o.price,
+            quantity: o.quantity
+          };
+
+
+          orders[o.id] = {
+            details: orderDetails,
+            items: [itemDetails]
+          };
+        }
+      }
+      for (let order in orders) {
+        console.log(orders[order]);
+      }
       const templateVars = {
-        orders: order
+        orders: orders
       };
       res.render("orders_in_queue", templateVars);
     });
@@ -71,37 +115,97 @@ router.get('/orders_in_queue', (req, res) => {
 
 
 router.get('/order/:id', (req, res) => {
-  return orderById(req.params.id)
+  return getOrders.orderById(req.params.id)
     .then(order => {
-      const templateVars = {
-        order: order
-      };
-      res.render("order_id", templateVars);
-    })
-    .catch((err) => {
-      console.log('error', err);
+      getOrders.orderLines(order.id)
+        .then(lines => {
+          console.log(lines);
+          let total = 0;
+          for (let i in lines) {
+            total += lines[i].price * lines[i].quantity;
+          }
+
+          order.total = total;
+          const templateVars = {
+            order: order,
+            items: lines
+          };
+          console.log(templateVars);
+          res.render("order_id", templateVars);
+        });
     });
+  // .catch((err) => {
+  //   console.log('error', err);
+  // });
 });
 
 router.get('/all_orders', (req, res) => {
-  return allOrders()
-    .then(order => {
+  return getOrders.allOrders()
+    .then(orderMasters => {
+      let orders = {};
+      for (let o of orderMasters) {
+        if (!o.name) {
+          continue;
+        }
+        if (orders[o.order_master_id]) {
+          let itemDetails = {
+            title: o.title,
+            price: o.price,
+            quantity: o.quantity
+          };
+          orders[o.order_master_id].details.total += o.price * o.quantity;
+          orders[o.order_master_id].items.push(itemDetails);
+        } else {
+          let orderDetails = {
+            id: o.order_master_id,
+            user_id: o.user_id,
+            order_datetime: o.order_datetime,
+            estimated_time: o.estimated_time,
+            completion_datetime: o.completion_datetime,
+            status: o.status,
+            name: o.name,
+            phone_number: o.phone_number,
+            total: o.price * o.quantity
+          };
+          let itemDetails = {
+            title: o.title,
+            price: o.price,
+            quantity: o.quantity
+          };
+
+
+          orders[o.order_master_id] = {
+            details: orderDetails,
+            items: [itemDetails]
+          };
+        }
+      }
+      for (let order in orders) {
+        console.log(orders[order]);
+      }
+      
       const templateVars = {
-        orders: order
+        orders: orders
       };
       res.render("all_orders", templateVars);
     });
 });
 
 //POSTS
-router.post('/item/:id', (req, res) => {
+//update and item
+router.post('/item', (req, res) => {
   const item = req.body;
-  console.log(item);
+  console.log("ITS HERE");
+  if (item) {
+    addMenuItem(item)
+      .then(()=> res.redirect("/admin/admin_menu"));
+  }
+});
+
+router.post('/item/:id', (req,res) => {
+  const item = req.body;
   if (item) {
     updateMenuItem(item)
-      .then(()=> res.redirect("/admin/admin_menu"));
-  } else {
-    addMenuItem(item)
       .then(()=> res.redirect("/admin/admin_menu"));
   }
 });
@@ -127,13 +231,13 @@ router.post('/order/:id/update', (req, res) => {
         orderCompleted(userID, orderId);
         return;
       });
-      
   }
 });
 
-router.post('order/:id/accept', (req, res) => {
+router.post('/order/:id/accept', (req, res) => {
   const orderId = req.params.id;
   const userID = req.session.userID;
+  console.log("ORDER IN ACCPETED: ", orderId);
   if (orderId) {
     updateStatus(orderId, 'accepted')
       .then(()=> {
