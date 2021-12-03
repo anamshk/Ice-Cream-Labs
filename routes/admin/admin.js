@@ -42,6 +42,18 @@ router.get('/admin_edit/', (req, res) => {
   res.render("admin_edit", templateVars);
 });
 
+router.get('/admin_add/', (req, res) => {
+  const templateVars = {
+    id: null,
+    title: null,
+    description: null,
+    price: null,
+    photo_url: null,
+    inventory: null
+  };
+  res.render("admin_add", templateVars);
+});
+
 router.get('/admin_edit/:id', (req, res) => {
   getMenu.getItemId(req.params.id)
     .then(item => {
@@ -94,6 +106,13 @@ router.get('/all_orders', (req, res) => {
 });
 
 //POSTS
+router.post('/item-add/', (req, res) => {
+  const item = req.body;
+  //console.log(item);
+  addMenuItem(item)
+    .then(()=> res.redirect("/admin/admin_menu")); 
+});
+
 router.post('/item/:id', (req, res) => {
   const item = req.body;
   console.log(item);
@@ -105,6 +124,8 @@ router.post('/item/:id', (req, res) => {
       .then(()=> res.redirect("/admin/admin_menu"));
   }
 });
+
+
 
 router.post('/item/:id/delete', (req, res) => {
   const itemId = req.params.id;
