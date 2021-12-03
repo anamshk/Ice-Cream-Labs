@@ -20,20 +20,26 @@
   <h1>Orders in queue</h1>
   <p id="small-link"><a href="../admin">back</a></p>
   <% for(let order of orders) { %>
+   
+    <div class="order-item">
+
     <h2>Order # <%=order.id%></h2>
-    <tr>
-      <td>Customer: <%= order.name %> |  <%= order.phone_number %></td>
-      <newline><td>Ordered at: <%= order.order_datetime %></td></newline>
-      <newline><td>Ordered: <%= order.title %></td></newline> 
-      <newline><td>Quantity: <%= order.quantity %></td></newline>
-      <!-- <newline><td>status: <%= order.status %></td></newline> -->
+    
+    
+      Customer: <%= order.name %> |  <%= order.phone_number %>
+      Ordered at: <%= order.order_datetime %>
+      Ordered: <%= order.title %>
+      Quantity: <%= order.quantity %>
+      <!-- <newline><td>status: <%= //order.status %></td></newline> -->
+
       <form class="form-inline" action="/admin/order/<%= order.id %>" method="GET">
         <button type="submit" class="btn btn-primary">View Order</button>
       </form>
       <form class="form-inline" action="/admin/order/<%= order.id %>/update" method="POST">
         <button type="submit" class="btn btn-primary">Completed</button>
       </form>
-    </tr>
+    </div>
+
   <% } %>
   
 </body>
