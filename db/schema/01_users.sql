@@ -31,7 +31,7 @@ CREATE TABLE order_master (
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   order_datetime TIMESTAMP,
   estimated_time TEXT,
-  completion_datetime TIMESTAMP,
+  completion_datetime TIMESTAMP DEFAULT NULL,
   status TEXT
 );
 
