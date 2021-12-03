@@ -20,8 +20,10 @@
   </nav> 
   <h1>admin edit</h1>
   <main>
-    <p id="small-link"><a href="../admin">back</a></p>
-    <form method="POST" action="/admin/item/<%=id%>">
+    <p id="small-link"><a href="/admin/admin_menu">back</a></p>
+
+
+    <form method="POST" action=<%= url %>>
         <input name="id" class="form-control" hidden=true id="itemName" value=<%= id %>>
         <label for="itemName">Item Name</label>
         <input name="title" class="form-control" id="itemName" value="<%= title %>">
